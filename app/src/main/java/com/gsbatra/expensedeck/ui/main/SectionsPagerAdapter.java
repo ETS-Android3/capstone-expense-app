@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.gsbatra.expensedeck.R;
-import com.gsbatra.expensedeck.Dashboard;
+import com.gsbatra.expensedeck.Overview;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -18,7 +18,7 @@ import com.gsbatra.expensedeck.Dashboard;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.overviewTab, R.string.incomeTab, R.string.expenseTab};
+    private static final int[] TAB_TITLES = new int[]{R.string.overviewTab, R.string.incomeTab, R.string.expenseTab, R.string.activityTab};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -33,13 +33,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch(position){
             case 0:
-                fragment = new Dashboard();
+                fragment = new Overview();
                 break;
             case 1:
-                fragment = new Dashboard();
+                fragment = new Overview();
                 break;
             case 2:
-                fragment = new Dashboard();
+                fragment = new Overview();
+                break;
+            case 3:
+                fragment = new Overview();
                 break;
         }
         return fragment;
@@ -54,6 +57,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 3;
+        return 4;
     }
 }
