@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Expense Deck</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="expenseTab">Expense</string>
+    <string name="incomeTab">Income</string>
+    <string name="overviewTab">Overview</string>
+    <string name="text_total_balance">Total Balance</string>
 </resources>
