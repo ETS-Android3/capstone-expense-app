@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.gsbatra.expensedeck.Expense;
+import com.gsbatra.expensedeck.Income;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.Overview;
 
@@ -36,10 +38,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new Overview();
                 break;
             case 1:
-                fragment = new Overview();
+                fragment = new Income();
                 break;
             case 2:
-                fragment = new Overview();
+                fragment = new Expense();
                 break;
             case 3:
                 fragment = new Overview();

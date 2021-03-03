@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Overview extends Fragment{
+public class Expense extends Fragment{
     List<TransactionAdapter.Transaction> transactions;
 
-    public Overview(){
+    public Expense(){
     }
 
     @Override
@@ -34,10 +34,10 @@ public class Overview extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.overview_fragment, container, false);
+        View view = inflater.inflate(R.layout.expense_fragment, container, false);
 
         // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.expense_transactions_rv);
         TransactionAdapter adapter = new TransactionAdapter(transactions);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);

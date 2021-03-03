@@ -14,30 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Overview extends Fragment{
+public class Income extends Fragment {
     List<TransactionAdapter.Transaction> transactions;
 
-    public Overview(){
+    public Income(){
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         transactions = new ArrayList<>();
-        transactions.add(new TransactionAdapter.Transaction("Coffee at Starbucks", "Food", "-$15"));
-        transactions.add(new TransactionAdapter.Transaction("Coffee at Starbucks", "Food", "-$15"));
-        transactions.add(new TransactionAdapter.Transaction("Coffee at Starbucks", "Food", "-$15"));
-        transactions.add(new TransactionAdapter.Transaction("Coffee at Starbucks", "Food", "-$15"));
-        transactions.add(new TransactionAdapter.Transaction("Coffee at Starbucks", "Food", "-$15"));
+        transactions.add(new TransactionAdapter.Transaction("Sold Stocks", "Investing", "+$15"));
+        transactions.add(new TransactionAdapter.Transaction("Sold Stocks", "Investing", "+$15"));
+        transactions.add(new TransactionAdapter.Transaction("Sold Stocks", "Investing", "+$15"));
+        transactions.add(new TransactionAdapter.Transaction("Sold Stocks", "Investing", "+$15"));
+        transactions.add(new TransactionAdapter.Transaction("Sold Stocks", "Investing", "+$15"));
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.overview_fragment, container, false);
+        View view = inflater.inflate(R.layout.income_fragment, container, false);
 
         // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.income_transactions_rv);
         TransactionAdapter adapter = new TransactionAdapter(transactions);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);

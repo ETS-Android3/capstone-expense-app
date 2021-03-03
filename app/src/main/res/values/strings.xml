@@ -14,4 +14,6 @@
     <string name="transaction_amount_text">-$15</string>
     <string name="transaction_name_text">Coffee at Starbucks</string>
     <string name="transaction_category_text">Food</string>
+    <string name="all_income_transaction">All Income Transactions</string>
+    <string name="all_expense_transaction">All Expense Transactions</string>
 </resources>
