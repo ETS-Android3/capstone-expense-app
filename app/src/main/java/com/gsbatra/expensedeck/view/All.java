@@ -17,10 +17,10 @@ import com.gsbatra.expensedeck.view.adapter.TransactionAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Overview extends Fragment{
+public class All extends Fragment{
     List<TransactionAdapter.Transaction> transactions;
 
-    public Overview(){
+    public All(){
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Overview extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.overview_fragment, container, false);
+        View view = inflater.inflate(R.layout.all_fragment, container, false);
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);

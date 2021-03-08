@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.gsbatra.expensedeck.view.Activity;
+import com.gsbatra.expensedeck.view.Summary;
 import com.gsbatra.expensedeck.view.Expense;
 import com.gsbatra.expensedeck.view.Income;
 import com.gsbatra.expensedeck.R;
-import com.gsbatra.expensedeck.view.Overview;
+import com.gsbatra.expensedeck.view.All;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -21,7 +21,7 @@ import com.gsbatra.expensedeck.view.Overview;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.overviewTab, R.string.incomeTab, R.string.expenseTab, R.string.activityTab};
+    private static final int[] TAB_TITLES = new int[]{R.string.allTab, R.string.incomeTab, R.string.expenseTab, R.string.summaryTab};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -36,7 +36,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch(position){
             case 0:
-                fragment = new Overview();
+                fragment = new All();
                 break;
             case 1:
                 fragment = new Income();
@@ -45,7 +45,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new Expense();
                 break;
             case 3:
-                fragment = new Activity();
+                fragment = new Summary();
                 break;
         }
         return fragment;

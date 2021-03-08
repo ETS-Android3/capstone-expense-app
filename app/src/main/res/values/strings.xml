@@ -2,14 +2,12 @@
     <string name="app_name">Expense Deck</string>
     <string name="expenseTab">Expense</string>
     <string name="incomeTab">Income</string>
-    <string name="overviewTab">Overview</string>
     <string name="total_balance_title">Balance</string>
     <string name="balance_amount">$999,999</string>
     <string name="total_income">Income</string>
     <string name="total_income_amount">$99,999</string>
     <string name="total_expense_amount">$99,999</string>
     <string name="total_expense">Expense</string>
-    <string name="activityTab">Activity</string>
     <string name="recent_transactions">Recent Transactions</string>
     <string name="transaction_amount_text">-$15</string>
     <string name="transaction_name_text">Coffee at Starbucks</string>
@@ -18,4 +16,6 @@
     <string name="all_expense_transaction">All Expense Transactions</string>
     <string name="total_transactions">Transactions</string>
     <string name="total_transactions_amount">15</string>
+    <string name="allTab">All</string>
+    <string name="summaryTab">Summary</string>
 </resources>

@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import com.gsbatra.expensedeck.R;
 
-public class Activity extends Fragment{
-    public Activity(){
+public class Summary extends Fragment{
+    public Summary(){
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_fragment, container, false);
+        return inflater.inflate(R.layout.summary_fragment, container, false);
     }
 }

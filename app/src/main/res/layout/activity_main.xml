@@ -38,10 +38,10 @@
             app:tabTextColor="@color/white">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/overviewTab"
+                android:id="@+id/allTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/overviewTab" />
+                android:text="@string/allTab" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/incomeTab"
@@ -56,10 +56,10 @@
                 android:text="@string/expenseTab" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/activityTab"
+                android:id="@+id/summaryTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/activityTab" />
+                android:text="@string/summaryTab" />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
