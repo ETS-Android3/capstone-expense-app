@@ -1,41 +1,65 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/total_balance_view"
     android:layout_width="match_parent"
-    android:layout_height="124dp"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/surface"
-    app:cardElevation="0dp">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/balance_card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:orientation="vertical">
+        android:layout_height="124dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/grey_light"
+        app:cardElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/total_balance_title"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/opensans_semibold"
-            android:gravity="center_horizontal"
-            android:text="@string/text_total_balance"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/total_balance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/opensans_semibold"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="@string/balance_amount" />
+            <ImageView
+                android:id="@+id/total_balance_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="12dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_account_balance"
+                app:tint="@color/grey_dark" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/total_balance_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="start"
+                android:text="@string/total_balance_title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                android:textColor="@color/black" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/total_balance_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="start"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:text="@string/balance_amount" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

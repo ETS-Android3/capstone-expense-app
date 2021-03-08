@@ -9,8 +9,11 @@
         android:id="@+id/income_card_view"
         android:layout_width="match_parent"
         android:layout_height="124dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/surface"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/income_light"
         app:cardElevation="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +32,7 @@
                 android:layout_margin="12dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_trend_up"
-                app:tint="@color/income" />
+                app:tint="@color/income_dark" />
 
             <TextView
                 android:id="@+id/total_income_title"
@@ -37,10 +40,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/opensans_semibold"
-                android:gravity="center_horizontal"
+                android:gravity="start"
                 android:text="@string/total_income"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/total_income_amount"
@@ -48,11 +51,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/opensans_semibold"
-                android:gravity="center_horizontal"
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="start"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textSize="24sp"
                 android:text="@string/total_income_amount" />
 
         </LinearLayout>

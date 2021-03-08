@@ -1,4 +1,4 @@
-package com.gsbatra.expensedeck;
+package com.gsbatra.expensedeck.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,15 +6,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.gsbatra.expensedeck.R;
+
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
-    static class Transaction {
+    public static class Transaction {
         String name;
         String category;
         String amount;
 
-        Transaction (String name, String category, String amount) {
+        public Transaction(String name, String category, String amount) {
             this.name = name;
             this.category = category;
             this.amount = amount;

@@ -6,10 +6,19 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="blue_500">#4F9BFF</color>
-    <color name="white">#FFFFFF</color>
+    <color name="blue_light">#a2d5f2</color>
+    <color name="blue_dark">#161d6f</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_surface">#f9f9f9</color>
     <color name="black">#000000</color>
     <color name="surface">#1A191E</color>
-    <color name="background">#121212</color>
+    <color name="background">#f9f9f9</color>
     <color name="income">#6FCF97</color>
+    <color name="income_light">#4ecca3</color>
+    <color name="income_dark">#1f441e</color>
     <color name="expense">#EB5757</color>
+    <color name="expense_light">#ff6768</color>
+    <color name="expense_dark">#7d0633</color>
+    <color name="grey_light">#e7e6e1</color>
+    <color name="grey_dark">#435560</color>
 </resources>

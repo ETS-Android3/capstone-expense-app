@@ -8,10 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.gsbatra.expensedeck.Expense;
-import com.gsbatra.expensedeck.Income;
+import com.gsbatra.expensedeck.view.Activity;
+import com.gsbatra.expensedeck.view.Expense;
+import com.gsbatra.expensedeck.view.Income;
 import com.gsbatra.expensedeck.R;
-import com.gsbatra.expensedeck.Overview;
+import com.gsbatra.expensedeck.view.Overview;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -44,7 +45,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new Expense();
                 break;
             case 3:
-                fragment = new Overview();
+                fragment = new Activity();
                 break;
         }
         return fragment;
@@ -58,7 +59,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
+        // Show 4 total pages.
         return 4;
     }
 }

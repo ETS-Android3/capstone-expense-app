@@ -1,4 +1,4 @@
-package com.gsbatra.expensedeck;
+package com.gsbatra.expensedeck.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gsbatra.expensedeck.R;
+import com.gsbatra.expensedeck.view.adapter.TransactionAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Overview extends Fragment{
+public class Expense extends Fragment{
     List<TransactionAdapter.Transaction> transactions;
 
-    public Overview(){
+    public Expense(){
     }
 
     @Override
@@ -34,10 +37,10 @@ public class Overview extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.overview_fragment, container, false);
+        View view = inflater.inflate(R.layout.expense_fragment, container, false);
 
         // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.expense_transactions_rv);
         TransactionAdapter adapter = new TransactionAdapter(transactions);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
