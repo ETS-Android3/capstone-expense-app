@@ -1,24 +1,35 @@
 package com.gsbatra.expensedeck.ui.main;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.view.Summary;
 import com.gsbatra.expensedeck.view.Expense;
 import com.gsbatra.expensedeck.view.Income;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.view.All;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.allTab, R.string.incomeTab, R.string.expenseTab, R.string.summaryTab};
