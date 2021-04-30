@@ -37,7 +37,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
     }
 
-    private List<Transaction> transactions; // Cached copy of jokes
+    private List<Transaction> transactions;
 
     public TransactionAdapter(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);

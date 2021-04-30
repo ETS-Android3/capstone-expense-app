@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal|center_vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_title_view"
@@ -46,8 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/text_type"
-        app:boxBackgroundColor="@color/background">
+        android:hint="@string/text_type">
 
         <AutoCompleteTextView
             android:id="@+id/et_transactionType"
@@ -66,8 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/text_tag"
-        app:boxBackgroundColor="@color/background">
+        android:hint="@string/text_tag">
 
         <AutoCompleteTextView
             android:id="@+id/et_transactionTag"
