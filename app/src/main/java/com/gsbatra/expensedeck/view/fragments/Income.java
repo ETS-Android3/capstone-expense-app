@@ -1,4 +1,4 @@
-package com.gsbatra.expensedeck.view;
+package com.gsbatra.expensedeck.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,8 +21,8 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 
-public class Expense extends Fragment implements TransactionAdapter.OnAmountsDataReceivedListener{
-    public Expense(){ }
+public class Income extends Fragment implements TransactionAdapter.OnAmountsDataReceivedListener{
+    public Income(){ }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,17 +34,17 @@ public class Expense extends Fragment implements TransactionAdapter.OnAmountsDat
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.expense_fragment, container, false);
+        view = inflater.inflate(R.layout.income_fragment, container, false);
 
         // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.expense_transactions_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.income_transactions_rv);
         TransactionAdapter adapter = new TransactionAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
         TransactionViewModel transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
-        transactionViewModel.getExpenseTransactions().observe(getViewLifecycleOwner(), adapter::setTransactions);
+        transactionViewModel.getIncomeTransactions().observe(getViewLifecycleOwner(), adapter::setTransactions);
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
         return view;
@@ -54,11 +54,11 @@ public class Expense extends Fragment implements TransactionAdapter.OnAmountsDat
     public void onAmountsDataReceived(double balance, double income, double expense, int size) {
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
-        String expense_str = format.format(expense);
+        String income_str = format.format(income);
 
+        TextView income_tv = view.findViewById(R.id.total_income_amount);
+        income_tv.setText(income_str);
         TextView transactions_tv = view.findViewById(R.id.total_transactions_amount);
         transactions_tv.setText(String.valueOf(size));
-        TextView expenses_tv = view.findViewById(R.id.total_expense_amount);
-        expenses_tv.setText(expense_str);
     }
 }

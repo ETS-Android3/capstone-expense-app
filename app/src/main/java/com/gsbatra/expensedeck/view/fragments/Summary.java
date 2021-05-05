@@ -1,4 +1,4 @@
-package com.gsbatra.expensedeck.view;
+package com.gsbatra.expensedeck.view.fragments;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -73,7 +73,7 @@ public class Summary extends Fragment{
         PieDataSet pieDataSet = new PieDataSet(temp, "Transactions");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
-        pieChart.setEntryLabelTextSize(16f);
+        pieChart.setEntryLabelTextSize(14f);
 
         ValueFormatter vf = new ValueFormatter() {
             @Override

@@ -1,4 +1,4 @@
-package com.gsbatra.expensedeck.view;
+package com.gsbatra.expensedeck.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
