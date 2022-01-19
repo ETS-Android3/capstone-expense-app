@@ -1,5 +1,5 @@
-Phase 1 
+# Phase 1 
 
 <p align="center">
-<img src ="capstone-expense-app/phase1/phase1.png" width="450">
+<img src ="phase1.png" width="700">
 </p>
