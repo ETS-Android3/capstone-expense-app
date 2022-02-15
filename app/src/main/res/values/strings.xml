@@ -29,8 +29,13 @@
     <string name="text_dollar">$</string>
     <string name="text_edit_transaction">Edit</string>
     <string name="text_delete_transaction">Delete</string>
+    <string name="subscriptionTab">Subscriptions</string>
+    <string name="goalTab">Goals</string>
     <string-array name="spinner_type_entries">
         <item>Other</item>
         <item>Stocks</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
 </resources>

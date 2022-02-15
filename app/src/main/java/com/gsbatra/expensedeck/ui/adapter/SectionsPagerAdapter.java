@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.gsbatra.expensedeck.view.fragments.Goal;
+import com.gsbatra.expensedeck.view.fragments.Subscription;
 import com.gsbatra.expensedeck.view.fragments.Summary;
 import com.gsbatra.expensedeck.view.fragments.Expense;
 import com.gsbatra.expensedeck.view.fragments.Income;
@@ -21,7 +23,8 @@ import com.gsbatra.expensedeck.view.fragments.All;
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.allTab, R.string.incomeTab, R.string.expenseTab, R.string.summaryTab};
+    private static final int[] TAB_TITLES = new int[]{R.string.allTab, R.string.incomeTab, R.string.expenseTab, R.string.summaryTab,
+            R.string.subscriptionTab, R.string.goalTab};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -47,7 +50,14 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
             case 3:
                 fragment = new Summary();
                 break;
+            case 4:
+                fragment = new Subscription();
+                break;
+            case 5:
+                fragment = new Goal();
+                break;
         }
+        assert fragment != null;
         return fragment;
     }
 
@@ -59,7 +69,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 4 total pages.
-        return 4;
+        // Show 6 total pages.
+        return 6;
     }
 }
