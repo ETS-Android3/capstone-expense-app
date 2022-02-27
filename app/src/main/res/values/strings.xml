@@ -31,6 +31,7 @@
     <string name="text_delete_transaction">Delete</string>
     <string name="subscriptionTab">Subscriptions</string>
     <string name="goalTab">Goals</string>
+    <string name="goal_slash">&#160;/&#160;&#160;&#160;&#160;</string>
     <string-array name="spinner_type_entries">
         <item>Other</item>
         <item>Stocks</item>
@@ -42,6 +43,10 @@
     <string name="total_subscriptions_amount">12</string>
     <string name="total_recurring">Recurring</string>
     <string name="total_recurring_amount">$99</string>
+    <string name="goal_title_text">Save $500 for Vacation</string>
+    <string name="goal_category_text">Savings</string>
+    <string name="goal_current_amount_text">$150</string>
+    <string name="goal_amount_text">$500</string>
     <string name="subscription_name_text">Netflix</string>
     <string name="subscription_category_text">Entertainment</string>
     <string name="subscription_amount_text">-$15</string>
