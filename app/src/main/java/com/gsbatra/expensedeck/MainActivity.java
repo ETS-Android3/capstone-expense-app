@@ -15,8 +15,10 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gsbatra.expensedeck.ui.adapter.SectionsPagerAdapter;
+import com.gsbatra.expensedeck.view.fragments.Subscription;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,33 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(0);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AddActivity.class)));
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                switch(position) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        fab.show();
+                        break;
+                    case 4:
+                    case 5:
+                        fab.hide();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+
+        // add transaction fab click
+        fab.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, AddTransactionActivity.class)));
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.db.TransactionViewModel;
@@ -36,6 +37,7 @@ public class Summary extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.summary_fragment, container, false);
         TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
         transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);

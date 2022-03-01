@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gsbatra.expensedeck.EditActivity;
+import com.gsbatra.expensedeck.EditTransactionActivity;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.Transaction;
 
@@ -66,7 +66,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.transactionAmount.setTextColor(Color.parseColor("#EB5757"));
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), EditActivity.class);
+            Intent intent = new Intent(view.getContext(), EditTransactionActivity.class);
             intent.putExtra("id", transactions.get(position).id);
             view.getContext().startActivity(intent);
         });

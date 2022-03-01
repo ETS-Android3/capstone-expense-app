@@ -19,10 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddActivity"
+        <activity android:name=".AddTransactionActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".EditActivity"
+        <activity android:name=".EditTransactionActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".AddSubscriptionActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".EditSubscriptionActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
     </application>

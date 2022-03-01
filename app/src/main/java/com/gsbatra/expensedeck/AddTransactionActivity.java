@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.db.TransactionDatabase;
 
-public class AddActivity extends AppCompatActivity {
+public class AddTransactionActivity extends AppCompatActivity {
     private int transaction_id;
     private final String[] type = new String[] {"Income", "Expense"};
     private final String[] tag = new String[] {"Utilities", "Entertainment", "Healthcare", "Transportation", "Housing",

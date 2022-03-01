@@ -14,7 +14,7 @@ import com.gsbatra.expensedeck.db.TransactionDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
-public class EditActivity extends AppCompatActivity {
+public class EditTransactionActivity extends AppCompatActivity {
     private int id;
 
     @Override
@@ -25,7 +25,7 @@ public class EditActivity extends AppCompatActivity {
         updateTextViews();
 
         findViewById(R.id.btn_edit_transaction).setOnClickListener(view -> {
-            Intent intent = new Intent(EditActivity.this, AddActivity.class);
+            Intent intent = new Intent(EditTransactionActivity.this, AddTransactionActivity.class);
             intent.putExtra("id", this.id);
             startActivity(intent);
             finish();
@@ -78,7 +78,7 @@ public class EditActivity extends AppCompatActivity {
             builder.setTitle(title)
                     .setMessage("Are you sure you want to delete this transaction?")
                     .setPositiveButton("Delete", (dialog, id) -> {
-                        ((EditActivity) getActivity()).deleteTransaction(transaction_id);
+                        ((EditTransactionActivity) getActivity()).deleteTransaction(transaction_id);
                     })
                     .setNegativeButton("Cancel", (dialog, id) -> {});
             return builder.create();

@@ -46,4 +46,7 @@
     <string name="subscription_category_text">Entertainment</string>
     <string name="subscription_amount_text">-$15</string>
     <string name="all_recurring_subscription">All Subscriptions</string>
+    <string name="text_save_goal">Save Goal</string>
+    <string name="text_save_subscription">Save Subscription</string>
+    <string name="mainfab_desc">add transaction</string>
 </resources>

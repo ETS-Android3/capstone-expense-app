@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gsbatra.expensedeck.MainActivity;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.TransactionViewModel;
 import com.gsbatra.expensedeck.view.adapter.TransactionAdapter;
@@ -35,6 +36,7 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.all_fragment, container, false);
+
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);
         TransactionAdapter adapter = new TransactionAdapter(getActivity());
