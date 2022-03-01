@@ -3,10 +3,10 @@
     <string name="expenseTab">Expense</string>
     <string name="incomeTab">Income</string>
     <string name="total_balance_title">Balance</string>
-    <string name="balance_amount">$47,491</string>
+    <string name="balance_amount">$999,999</string>
     <string name="total_income">Income</string>
-    <string name="total_income_amount">$59,980</string> //XL change
-    <string name="total_expense_amount">12,489</string>
+    <string name="total_income_amount">$99,999</string>
+    <string name="total_expense_amount">$99,999</string>
     <string name="total_expense">Expense</string>
     <string name="recent_transactions">Recent Transactions</string>
     <string name="transaction_amount_text">-$15</string>

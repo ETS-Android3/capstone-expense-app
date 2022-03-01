@@ -1,6 +1,5 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transactionCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -31,17 +30,16 @@
             android:id="@+id/transactionTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/opensans_regular"
-            android:text="@string/transaction_category_text"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/white"
+            android:text="@string/transaction_category_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/transactionName"
             app:layout_constraintTop_toBottomOf="@id/transactionName"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/transactionAmount"
@@ -56,15 +54,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/food_icon"
-            tools:layout_editor_absoluteY="38dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
