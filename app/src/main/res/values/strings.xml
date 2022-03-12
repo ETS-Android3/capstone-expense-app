@@ -20,11 +20,13 @@
     <string name="summaryTab">Summary</string>
     <string name="text_title">Title</string>
     <string name="text_amount">Amount</string>
+    <string name="text_amount_total">Amount Total</string>
     <string name="text_expense_dollars">Amount</string>
     <string name="text_type">Type</string>
     <string name="text_tag">Tag</string>
     <string name="text_when">When</string>
     <string name="text_save_transaction">Save Transaction</string>
+    <string name="text_save_goal">Save Goal</string>
     <string name="text_note">Note</string>
     <string name="text_dollar">$</string>
     <string name="text_edit_transaction">Edit</string>
@@ -39,6 +41,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="settings">Settings</string>
+    <string name="total_goals">Goals</string>
+    <string name="total_goals_amount">9</string>
+    <string name="total_goals_value_text">Goals Amount</string>
+    <string name="total_goals_value">$119</string>
     <string name="total_subscriptions">Subscriptions</string>
     <string name="total_subscriptions_amount">12</string>
     <string name="total_recurring">Recurring</string>
@@ -51,4 +57,6 @@
     <string name="subscription_category_text">Entertainment</string>
     <string name="subscription_amount_text">-$15</string>
     <string name="all_recurring_subscription">All Subscriptions</string>
+    <string name="all_goals">All Goals</string>
+    <string name="mainfab_goal">add goal</string>
 </resources>
