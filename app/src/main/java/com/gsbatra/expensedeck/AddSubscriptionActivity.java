@@ -58,7 +58,7 @@ public class AddSubscriptionActivity extends AppCompatActivity {
 
         // check required fields are not null
         if(title.equals("") || amount.equals("") || tag.equals("")){
-            Toast.makeText(getApplicationContext(), "Title, Amount, Tag are required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Fill out the required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 

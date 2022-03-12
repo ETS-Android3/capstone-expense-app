@@ -1,9 +1,12 @@
 package com.gsbatra.expensedeck;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,7 +16,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.db.TransactionDatabase;
 
-public class AddTransactionActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class AddTransactionActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private int transaction_id;
     private final String[] type = new String[] {"Income", "Expense"};
     private final String[] tag = new String[] {"Utilities", "Entertainment", "Healthcare", "Transportation", "Housing",
@@ -37,6 +42,27 @@ public class AddTransactionActivity extends AppCompatActivity {
             setEditTransaction();
         }
         findViewById(R.id.btn_save_transaction).setOnClickListener(this::saveTransaction);
+
+        findViewById(R.id.et_when).setOnClickListener(view -> {
+            showDatePickerDialog();
+        });
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        String date = month + "/" + day + "/" + year;
+        ((TextInputEditText) findViewById(R.id.et_when)).setText(date);
     }
 
     private void setEditTransaction() {
@@ -61,14 +87,14 @@ public class AddTransactionActivity extends AppCompatActivity {
         String type = typeTextView.getEditableText().toString();
         AutoCompleteTextView tagTextView = findViewById(R.id.et_transactionTag);
         String tag = tagTextView.getEditableText().toString();
+        String when = ((TextInputEditText) findViewById(R.id.et_when)).getText().toString();
 
-        if(title.equals("") || amount.equals("") || type.equals("") || tag.equals("")){
-            Toast.makeText(getApplicationContext(), "Title, Amount, Type, and Tag are required", Toast.LENGTH_SHORT).show();
+        if(title.equals("") || amount.equals("") || type.equals("") || tag.equals("") || when.equals("")){
+            Toast.makeText(getApplicationContext(), "Fill out the required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String note = ((TextInputEditText) findViewById(R.id.et_note)).getText().toString();
-        String when = ((TextInputEditText) findViewById(R.id.et_when)).getText().toString();
 
         Transaction transaction = new Transaction(transaction_id == -1 ? 0 : transaction_id,
                 title, Double.parseDouble(amount), type, tag, note, when);
