@@ -49,4 +49,25 @@
     <string name="text_save_goal">Save Goal</string>
     <string name="text_save_subscription">Save Subscription</string>
     <string name="mainfab_desc">add transaction</string>
+    
+    <string name="expenseslist1">Expenses</string>
+    <string name="incomelist1">Income</string>
+
+    <string-array name="expenseslist1">
+        <item>Utilities</item>
+        <item>Entertainment</item>
+        <item>Healthcare</item>
+        <item>Transportation</item>
+        <item>Housing</item>
+        <item>Investing</item>
+    </string-array>
+
+    <string-array name="incomelist1">
+        <item>Utilities</item>
+        <item>Entertainment</item>
+        <item>Healthcare</item>
+        <item>Transportation</item>
+        <item>Housing</item>
+        <item>Investing</item>
+    </string-array>
 </resources>
