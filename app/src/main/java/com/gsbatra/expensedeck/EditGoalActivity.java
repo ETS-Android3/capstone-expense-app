@@ -25,10 +25,10 @@ public class EditGoalActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_edit_delete_goal);
         this.id = getIntent().getIntExtra("id", -1);
 
-        // set details of selected subscription to text views
+        // set details of selected goal to text views
         updateTextViews();
 
-        // launch add subscription activity if edit is clicked
+        // launch add goal activity if edit is clicked
         findViewById(R.id.btn_edit_transaction).setOnClickListener(view -> {
             Intent intent = new Intent(EditGoalActivity.this, AddGoalsActivity.class);
             intent.putExtra("id", this.id);

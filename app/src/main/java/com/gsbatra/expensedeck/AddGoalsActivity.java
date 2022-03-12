@@ -59,7 +59,7 @@ public class AddGoalsActivity extends AppCompatActivity {
         String tag = tagTextView.getEditableText().toString();
 
         // check required fields are not null
-        if(title.equals("") || amount.equals("") || tag.equals("")){
+        if(title.equals("") || amount.equals("") || amountTotal.equals("") || tag.equals("")){
             Toast.makeText(getApplicationContext(), "Title, Amount, Total Amount, Tag are required", Toast.LENGTH_SHORT).show();
             return;
         }
