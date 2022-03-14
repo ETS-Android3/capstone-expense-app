@@ -1,5 +1,14 @@
 package com.gsbatra.expensedeck.view.adapter;
 
+import static com.gsbatra.expensedeck.view.fragments.Summary.EmapMTD;
+import static com.gsbatra.expensedeck.view.fragments.Summary.EmapYTD;
+import static com.gsbatra.expensedeck.view.fragments.Summary.ImapMTD;
+import static com.gsbatra.expensedeck.view.fragments.Summary.ImapYTD;
+import static com.gsbatra.expensedeck.view.fragments.Summary.monthtotalexpenses;
+import static com.gsbatra.expensedeck.view.fragments.Summary.monthtotalincome;
+import static com.gsbatra.expensedeck.view.fragments.Summary.yeartotalexpenses;
+import static com.gsbatra.expensedeck.view.fragments.Summary.yeartotalincome;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,12 +86,6 @@ public class SummaryAdapter extends BaseExpandableListAdapter {
             view = layoutInflater.inflate(R.layout.list_group,null);
         }
 
-        double yrtotalincome = sum.getYeartotalincome();
-        double yrtotalexpenses = sum.getYeartotalexpenses();
-
-        double mototalincome = sum.getMonthtotalincome();
-        double mototalexpenses = sum.getMonthtotalexpenses();
-
         TextView textView = view.findViewById(R.id.list_parent);
         textView.setText(group);
 
@@ -91,12 +94,12 @@ public class SummaryAdapter extends BaseExpandableListAdapter {
         TextView textView3 = view.findViewById(R.id.list_parent_YTD);
 
         if (group.equals("Expenses")) {
-            textView2.setText(String.valueOf(mototalexpenses));
-            textView3.setText(String.valueOf(yrtotalexpenses));
+            textView2.setText(String.valueOf(monthtotalexpenses));
+            textView3.setText(String.valueOf(yeartotalexpenses));
         }
         else {
-            textView2.setText(String.valueOf(mototalincome));
-            textView3.setText(String.valueOf(yrtotalincome));
+            textView2.setText(String.valueOf(monthtotalincome));
+            textView3.setText(String.valueOf(yeartotalincome));
         }
         return view;
     }
@@ -117,53 +120,35 @@ public class SummaryAdapter extends BaseExpandableListAdapter {
         TextView textView = view.findViewById(R.id.list_child); //!!
         textView.setText(child);
 
-        HashMap<String, Double> EmtdHASH = sum.getEMTDamts();
-        HashMap<String, Double> EytdHASH = sum.getEYTDamts();
-
-        HashMap<String, Double> ImtdHASH = sum.getIMTDamts();
-        HashMap<String, Double> IytdHASH = sum.getIYTDamts();
-
-        if (EmtdHASH.get(child) == null) {
+        if (EmapMTD.get(child) == null) {
 
         }
         else {
             Double mtdval = 0.0;
             if (group.equals("Expenses")) {
-                mtdval = EmtdHASH.get(child);
+                mtdval = EmapMTD.get(child);
             }
             else {
-                mtdval = ImtdHASH.get(child);
+                mtdval = ImapMTD.get(child);
             }
             TextView textView2 = view.findViewById(R.id.list_child_MTD);
             textView2.setText(String.valueOf(mtdval));
         }
 
-        if (EytdHASH.get(child) == null) {
+        if (EmapYTD.get(child) == null) {
 
         }
         else {
             Double ytdval = 0.0;
             if (group.equals("Expenses")) {
-                ytdval = EytdHASH.get(child);
+                ytdval = EmapYTD.get(child);
             }
             else {
-                ytdval = IytdHASH.get(child);
+                ytdval = ImapYTD.get(child);
             }
             TextView textView3 = view.findViewById(R.id.list_child_YTD);
             textView3.setText(String.valueOf(ytdval));
         }
-
-
-
-
-        /*String st = "";
-        int duration = Toast.LENGTH_SHORT;
-        for (String name: mtdHASH.keySet()) {
-            String key = name.toString();
-            String value = mtdHASH.get(name).toString();
-            st = name + " " + value;
-
-        }*/
 
         return view;
     }
