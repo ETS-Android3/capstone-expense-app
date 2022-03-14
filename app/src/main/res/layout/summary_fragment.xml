@@ -187,7 +187,7 @@
                         android:id="@+id/activity_main_changeinterval"
                         android:paddingBottom="30dp" />
                 </RadioGroup>
-
+                
             </LinearLayout>
 
             <!--<LinearLayout
@@ -197,7 +197,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pieChart">
-
             </LinearLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
