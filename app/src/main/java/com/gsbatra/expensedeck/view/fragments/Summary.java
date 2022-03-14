@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class Summary extends Fragment implements TransactionAdapter.OnAmountsDataReceivedListener{
+public class Summary extends Fragment implements TransactionAdapter.OnAmountsDataReceivedListener {
     //
     Calendar rightNow = Calendar.getInstance();
     ExpandableListView expandableListView;
@@ -46,10 +46,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     HashMap<String,List<String>> listItem;
     SummaryAdapter adapter;
 
-    //Expenses - currently we only have this one
     public static HashMap<String, Double> EmapMTD = new HashMap<String, Double>();
     public static HashMap<String, Double> EmapYTD = new HashMap<String, Double>();
-    //Income
+
     public static HashMap<String, Double> ImapMTD = new HashMap<String, Double>();
     public static HashMap<String, Double> ImapYTD = new HashMap<String, Double>();
 
@@ -144,7 +143,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         array = getResources().getStringArray(R.array.incomelist1);
         for (String item : array) {
             list2.add(item);
-            
+            //hard-coded for now.  show income/expense for each individual item
         }
 
         listItem.put(listGroup.get(0),list1);
@@ -205,13 +204,13 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
                 if (yr.equals(currentyear)) {
                     if (type.equals("Expense")) {
-                        
+                        //if one of type expense doesnt exist
                         yeartotalexpenses += amt;
                         if(!EmapYTD.containsKey(tag)) {
                             //amt = amt * -1;
                             EmapYTD.put(tag, amt);
                         } else {
-                            
+                            //if one of type expense exists
                             //amt = amt * -1;
                             double y = EmapYTD.get(tag);
                             EmapYTD.replace(tag, y, y + amt);
@@ -222,7 +221,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                         if(!ImapYTD.containsKey(tag)) {
                             ImapYTD.put(tag, amt);
                         } else {
-                            
+                            //if one of type income exists
                             double x = ImapYTD.get(tag);
                             ImapYTD.replace(tag, x, x + amt);
                         }
@@ -230,12 +229,12 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
                     if (mo.equals(currentmonth)) {
                         if (type.equals("Expense")) {
-                            
+                            //if one of type expense doesnt exist
                             monthtotalexpenses += amt;
                             if(!EmapMTD.containsKey(tag)) {
                                 EmapMTD.put(tag, amt);
                             } else {
-                               
+                                //if one of type expense exists
                                 double y = EmapMTD.get(tag);
                                 EmapMTD.replace(tag, y, y + amt);
                             }
@@ -245,7 +244,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                             if(!ImapMTD.containsKey(tag)) {
                                 ImapMTD.put(tag, amt);
                             } else {
-                                
+                                //if one of type income exists
                                 double x = ImapMTD.get(tag);
                                 ImapMTD.replace(tag, x, x + amt);
                             }
@@ -295,45 +294,17 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         balanceMTD_tv.setText(String.valueOf(format.format(balance_mtd)));
         if (balance_mtd < 0) {
             balanceMTD_tv.setTextColor(Color.RED); //if its a negative number
-            balanceMTD_tv.setText("(" + String.valueOf(format.format(balance_mtd)) + ")");
+            balanceMTD_tv.setText("(" + String.valueOf(format.format(balance_mtd * -1.0)) + ")");
         }
         TextView balanceYTD_tv = view.findViewById(R.id.list_child_YTD_balance);
         balanceYTD_tv.setText(String.valueOf(format.format(balance_ytd)));
         if (balance_ytd < 0) {
             balanceYTD_tv.setTextColor(Color.RED); //if its a negative number
-            balanceYTD_tv.setText("(" + String.valueOf(format.format(balance_ytd)) + ")");
+            balanceYTD_tv.setText("(" + String.valueOf(format.format(balance_ytd * -1.0)) + ")");
         }
 
     }
 
-
-
-    public HashMap<String, Double> getEMTDamts() {
-        return EmapMTD;
-    }
-    public HashMap<String, Double> getEYTDamts() {
-        return EmapYTD;
-    }
-
-    public HashMap<String, Double> getIMTDamts() {
-        return ImapMTD;
-    }
-    public HashMap<String, Double> getIYTDamts() {
-        return ImapYTD;
-    }
-
-    public double getMonthtotalincome() {
-        return monthtotalincome;
-    }
-    public double getMonthtotalexpenses() {
-        return monthtotalexpenses;
-    }
-    public double getYeartotalincome() {
-        return yeartotalincome;
-    }
-    public double getYeartotalexpenses() {
-        return yeartotalexpenses;
-    }
 
     public void createPieChart(HashMap<String, Integer> map){
         PieChart pieChart = view.findViewById(R.id.pieChart);
@@ -389,4 +360,3 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         balanceYTD_tv.setText(balanceYTD);*/
     }
 }
-
