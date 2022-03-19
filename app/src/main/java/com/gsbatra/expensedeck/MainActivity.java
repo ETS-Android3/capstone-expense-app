@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                     case 1:
                     case 2:
-                    case 3:
                         fab.show();
                         break;
+                    case 3:
                     case 4:
                     case 5:
                         fab.hide();

@@ -168,8 +168,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             Double amt = transaction.amount;
             String whn = transaction.when;
 
-            String mo = whn.substring(0,2);
-            String yr = whn.substring(Math.max(whn.length() - 2, 0)); //year
+            String mo = "10"; //whn.substring(0,1);
+            String yr = "2022"; // whn.substring(Math.max(whn.length() - 2, 0)); //year
 
             if(!map.containsKey(tag)){ //
                 map.put(tag, 1);
