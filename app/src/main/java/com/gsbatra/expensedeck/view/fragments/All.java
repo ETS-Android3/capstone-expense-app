@@ -45,7 +45,7 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.all_fragment, container, false);
 
-        // set up the Transaction RecyclerView
+        // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);
         adapter = new TransactionAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -61,12 +61,13 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
     }
 
     @Override
-    public void onAmountsDataReceived(double balance, double income, double expense, int size) {
+    public void onAmountsDataReceived(double balance, double income, double expense, int size, String suggestion) {
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
         String balance_str = format.format(balance);
         String income_str = format.format(income);
         String expense_str = format.format(expense);
+        String suggest_str = format.format(suggestion);
 
         TextView balance_tv = view.findViewById(R.id.total_balance_amount);
         balance_tv.setText(balance_str);
@@ -76,6 +77,14 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
         expenses_tv.setText(expense_str);
         TextView income_tv = view.findViewById(R.id.total_income_amount);
         income_tv.setText(income_str);
+
+        TextView suggestion_tv = view.findViewById(R.id.Suggestion_Content);
+        suggestion_tv.setText(suggest_str);
+        TextView suggestion_exp_tv = view.findViewById(R.id.sg_transactionAmount);
+        suggestion_exp_tv.setText(expense_str);
+        TextView suggestion_tag_tv = view.findViewById(R.id.sg_transactionTag);
+        suggestion_tag_tv.setText(expense_str);
+
     }
 
     @Override

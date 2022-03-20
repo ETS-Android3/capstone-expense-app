@@ -130,13 +130,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public void getAmounts(){
         if(transactions == null) {
-            onResult(0, 0, 0, 0);
+            onResult(0, 0, 0, 0, "");
             return;
         }
 
         double balance;
         double income = 0;
         double expense = 0;
+        String suggestion = "";
         for(Transaction transaction : transactions){
             if(transaction.type.equals("Income"))
                 income += transaction.amount;
@@ -145,19 +146,25 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
 
         balance = income + expense * -1;
-        onResult(balance, income, expense, getItemCount());
+        if (balance < 0){
+            suggestion = "save money";
+        }
+        else if(balance > 0){
+            suggestion = "spend money";
+        }
+        onResult(balance, income, expense, getItemCount(),suggestion);
     }
 
-    private void onResult(double balance, double income, double expense, int size) {
+    private void onResult(double balance, double income, double expense, int size, String suggestion) {
         if(onAmountsDataReceivedListener != null){
-            onAmountsDataReceivedListener.onAmountsDataReceived(balance, income, expense, size);
+            onAmountsDataReceivedListener.onAmountsDataReceived(balance, income, expense, size,suggestion);
         }
     }
 
     private OnAmountsDataReceivedListener onAmountsDataReceivedListener;
 
     public interface OnAmountsDataReceivedListener {
-        void onAmountsDataReceived(double balance, double income, double expense, int size);
+        void onAmountsDataReceived(double balance, double income, double expense, int size, String  Suggestion);
     }
 
     public void setOnAmountsDataReceivedListener(OnAmountsDataReceivedListener listener){
