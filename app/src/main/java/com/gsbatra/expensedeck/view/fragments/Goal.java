@@ -3,14 +3,19 @@ package com.gsbatra.expensedeck.view.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +31,7 @@ import java.util.Locale;
 public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedListener {
 
     private View view;
+    private GoalAdapter adapter;
 
     public Goal() {
         // Required empty public constructor
@@ -34,6 +40,7 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -44,7 +51,7 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recurring_goals_rv);
-        GoalAdapter adapter = new GoalAdapter(getActivity());
+        adapter = new GoalAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setNestedScrollingEnabled(false);
@@ -55,11 +62,36 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
         adapter.getAmounts();
 
         // fab
-        FloatingActionButton subscription_fab = view.findViewById(R.id.goal_fab);
-        subscription_fab.setOnClickListener(view -> startActivity(new Intent(getActivity(), AddGoalsActivity.class)));
+        FloatingActionButton goal_fab = view.findViewById(R.id.goal_fab);
+        goal_fab.setOnClickListener(view -> startActivity(new Intent(getActivity(), AddGoalsActivity.class)));
 
         return view;
     }
+
+    /*
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setQueryHint("Search goals...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
+     */
 
     @Override
     public void onAmountsDataReceived(double recurring, int size) {
@@ -67,9 +99,34 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
         format.setCurrency(Currency.getInstance("USD"));
         String recurring_str = format.format(recurring);
 
-        TextView recurring_tv = view.findViewById(R.id.total_goals_amount_view);
+        TextView recurring_tv = view.findViewById(R.id.total_expense_amount);
         recurring_tv.setText(recurring_str);
-        TextView goals_tv = view.findViewById(R.id.total_goals_card_view);
+        TextView goals_tv = view.findViewById(R.id.total_goals_amount);
         goals_tv.setText(String.valueOf(size));
     }
+
+    /*
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setQueryHint("Search goals...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
+     */
 }

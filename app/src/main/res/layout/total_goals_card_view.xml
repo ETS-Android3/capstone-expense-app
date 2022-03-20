@@ -45,7 +45,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline" />
 
             <TextView
-                android:id="@+id/total_subscriptions_amount"
+                android:id="@+id/total_goals_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"

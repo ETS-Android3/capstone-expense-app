@@ -84,7 +84,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         app:backgroundTint="@color/income_light"
-        app:srcCompat="@drawable/ic_baseline_repeat_24"
+        app:srcCompat="@drawable/ic_add"
         android:contentDescription="@string/mainfab_goal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +21,16 @@ import com.gsbatra.expensedeck.db.Goal;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder> {
+public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder> implements Filterable {
+
+    private List<Goal> goals;
+    private List<Goal> goalsAll;
+    private OnAmountsDataReceivedListener onAmountsDataReceivedListener;
 
     public static class GoalViewHolder extends RecyclerView.ViewHolder {
         private final TextView goalName;
@@ -40,7 +47,45 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         }
     }
 
-    private List<Goal> goals;
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        // background thread
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+
+            FilterResults filterResults = new FilterResults();
+            if(charSequence != null && charSequence.toString().length() > 0) {
+                List<Goal> filteredGoals = new ArrayList<>();
+                for(Goal goal : goalsAll) {
+                    if(goal.title.toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredGoals.add(goal);
+                    }
+                }
+
+                filterResults.count = filteredGoals.size();
+                filterResults.values = filteredGoals;
+            } else {
+                synchronized (this) {
+                    filterResults.values = goalsAll;
+                    filterResults.count = goalsAll.size();
+                }
+            }
+
+            return filterResults;
+        }
+
+        // ui thread
+        @SuppressLint("NotifyDataSetChanged")
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            goals = (List<Goal>) filterResults.values;
+            notifyDataSetChanged();
+        }
+    };
 
     public GoalAdapter(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -60,13 +105,15 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
+
         String amount_str = format.format(goals.get(position).amount);
+        String amountTotal_str = format.format(goals.get(position).amountTotal);
 
         holder.goalAmount.setText(amount_str);
         holder.goalAmount.setTextColor(Color.parseColor("#e7e6e1"));
 
         // get goal amount total
-        holder.goalAmountTotal.setText(amount_str);
+        holder.goalAmountTotal.setText(amountTotal_str);
         holder.goalAmountTotal.setTextColor(Color.parseColor("#6FCF97"));
 
         holder.itemView.setOnClickListener(view -> {
@@ -84,6 +131,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     @SuppressLint("NotifyDataSetChanged")
     public void setGoals(List<Goal> goals) {
         this.goals = goals;
+        this.goalsAll = goals;
         getAmounts();
         notifyDataSetChanged();
     }
@@ -107,8 +155,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             onAmountsDataReceivedListener.onAmountsDataReceived(recurring, size);
         }
     }
-
-    private OnAmountsDataReceivedListener onAmountsDataReceivedListener;
 
     public interface OnAmountsDataReceivedListener {
         void onAmountsDataReceived(double recurring, int size);

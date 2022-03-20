@@ -34,7 +34,7 @@ public class AddGoalsActivity extends AppCompatActivity {
         }
 
         // btn listener for adding a goal
-        findViewById(R.id.goal_fab).setOnClickListener(this::saveGoal);
+        findViewById(R.id.btn_save_goal).setOnClickListener(this::saveGoal);
     }
 
     private void setEditGoal() {
@@ -60,7 +60,7 @@ public class AddGoalsActivity extends AppCompatActivity {
 
         // check required fields are not null
         if(title.equals("") || amount.equals("") || amountTotal.equals("") || tag.equals("")){
-            Toast.makeText(getApplicationContext(), "Title, Amount, Total Amount, Tag are required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Fill out the required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 

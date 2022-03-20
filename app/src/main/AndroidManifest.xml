@@ -25,6 +25,12 @@
         <activity android:name=".EditActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
+        <activity android:name=".AddGoalsActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".EditGoalActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
     </application>
 
 </manifest>
