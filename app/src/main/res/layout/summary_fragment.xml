@@ -16,13 +16,10 @@
         android:fontFamily="@font/opensans_regular"
         android:focusableInTouchMode="true">
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/summary_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -144,6 +141,83 @@
                         android:paddingRight="45dp"
                         android:layout_gravity="right"/>
                 </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white"/>
+
+                <TextView
+                    android:id="@+id/chart_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechart"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/xaxis_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/xaxis_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:fontFamily="@font/opensans_bold"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/activity_main_timeinterval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="80dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/interval"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_main_monthly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="20dp"
+                        android:textSize="15sp"
+                        android:text="@string/monthly"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/activity_main_yearly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="@string/yearly"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white" />
+
+                </RadioGroup>
 
             </LinearLayout>
 

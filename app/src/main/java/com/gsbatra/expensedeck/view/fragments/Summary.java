@@ -1,14 +1,17 @@
 package com.gsbatra.expensedeck.view.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,11 +20,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.Transaction;
@@ -32,14 +42,16 @@ import com.gsbatra.expensedeck.view.adapter.TransactionAdapter;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Map;
 
 public class Summary extends Fragment implements TransactionAdapter.OnAmountsDataReceivedListener {
-    //
+
     Calendar rightNow = Calendar.getInstance();
     ExpandableListView expandableListView;
     List<String> listGroup;
@@ -57,6 +69,12 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     public static double yeartotalincome;
     public static double yeartotalexpenses;
+
+    private static final ArrayList<Entry> chartValues = new ArrayList<>();
+    private static double yAxisMax;
+    private static double yAxisMin;
+    private static Integer xAxisMax;
+    private static Integer xAxisMin;
 
     public Summary(){
         EmapMTD.put("Utilities",0.0);
@@ -104,11 +122,10 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         String month = rightNow.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
         String caldate = month + " " + year;
 
-
         view = inflater.inflate(R.layout.summary_fragment, container, false);
         TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
         transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);
-        //
+
         expandableListView = view.findViewById(R.id.expandable_listview);
         listGroup = new ArrayList<>();
         listItem = new HashMap<>();
@@ -123,7 +140,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
-        //
+
         return view;
     }
 
@@ -257,7 +274,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
         }
         createPieChart(map);
-
+        createLineChart(transactions);
 
         double balance_mtd = 0;
 
@@ -305,7 +322,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     }
 
-
     public void createPieChart(HashMap<String, Integer> map){
         PieChart pieChart = view.findViewById(R.id.pieChart);
         Typeface reg_tf = ResourcesCompat.getFont(getContext(), R.font.opensans_regular);
@@ -345,6 +361,203 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         pieChart.setEntryLabelColor(Color.BLACK);
         pieChart.getLegend().setEnabled(false);
         pieChart.animate();
+    }
+
+    public void createLineChart(List<Transaction> transactions) {
+        LineChart lineChart = view.findViewById(R.id.linechart);
+        RadioButton radio1 = view.findViewById(R.id.activity_main_monthly);
+        RadioButton radio2 = view.findViewById(R.id.activity_main_yearly);
+        radio1.setChecked(true);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.setDrawLimitLinesBehindData(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(14f);
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.removeAllLimitLines();
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.setDrawZeroLine(false);
+        leftAxis.setDrawLimitLinesBehindData(false);
+        leftAxis.setTextSize(14f);
+
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.setPinchZoom(true);
+        lineChart.setDescription(null);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.setExtraBottomOffset(8f);
+
+        getValues(transactions);
+        setAxes();
+        setLineChartData();
+
+        radio1.setOnClickListener(v -> {
+            lineChart.notifyDataSetChanged();
+            lineChart.invalidate();
+            chartValues.clear();
+            getValues(transactions);
+            setAxes();
+            setLineChartData();});
+
+        radio2.setOnClickListener(v -> {
+            lineChart.notifyDataSetChanged();
+            lineChart.invalidate();
+            chartValues.clear();
+            getValues(transactions);
+            setAxes();
+            setLineChartData();});
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    public void getValues(List<Transaction> transactions){
+        RadioGroup radioGroup = view.findViewById(R.id.activity_main_timeinterval);
+        TextView chartTitle = view.findViewById(R.id.chart_title);
+        TextView xAxisLabel = view.findViewById(R.id.xaxis_label);
+        xAxisMax = Integer.MIN_VALUE;
+        xAxisMin = Integer.MAX_VALUE;
+        yAxisMax = Integer.MIN_VALUE;
+        yAxisMin = Integer.MAX_VALUE;
+
+        //Get RadioGroup value(monthly or yearly), set chart title, and set xAxis label
+        String frequency;
+        if (radioGroup.getCheckedRadioButtonId() == R.id.activity_main_monthly) {
+            frequency = "monthly";
+            chartTitle.setText(getResources().getString(R.string.balance_this_month));
+            xAxisLabel.setText(getResources().getString(R.string.day));
+        }
+        else {
+            frequency = "yearly";
+            chartTitle.setText(getResources().getString(R.string.balance_this_year));
+            xAxisLabel.setText(getResources().getString(R.string.month));
+        }
+
+        //Get current month and year
+        String mFormat="MM";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(mFormat, Locale.US);
+        String currentmonth = dateFormat.format(rightNow.getTime());
+
+        String yFormat="yy";
+        SimpleDateFormat dateFormat1=new SimpleDateFormat(yFormat, Locale.US);
+        String currentyear = dateFormat1.format(rightNow.getTime());
+
+        //sort transactions ascending by day if monthly, or by month if yearly
+        if (frequency.equals("monthly"))
+            transactions.sort(Comparator.comparing(Transaction::getDay));
+        else //yearly
+            transactions.sort(Comparator.comparing(Transaction::getMonth));
+
+        //totalBalance stores the date(day or month) and total balance for that date for each transaction
+        HashMap<Integer, Double> totalBalance = new HashMap<>();
+        double balance = 0.0;
+
+        for (Transaction t: transactions) {
+            String type = t.type;
+            double amt = t.amount;
+            String whn = t.when;
+
+            String mo = whn.substring(0,2);
+            String yr = whn.substring(Math.max(whn.length() - 2, 0));
+
+            switch(frequency) {
+                case "monthly":
+                    if (yr.equals(currentyear) && mo.equals(currentmonth)) {
+                        if (type.equals("Income")) {
+                            balance += amt;
+                            if (totalBalance.containsKey(t.getDay()))
+                                totalBalance.replace(t.getDay(), balance);
+                            else
+                                totalBalance.put(t.getDay(), balance);
+                        } else if (type.equals("Expense")) {
+                            balance -= amt;
+                            if (totalBalance.containsKey(t.getDay()))
+                                totalBalance.replace(t.getDay(), balance);
+                            else
+                                totalBalance.put(t.getDay(), balance);
+                        }
+                    }
+                    break;
+                case "yearly":
+                    if (yr.equals(currentyear)) {
+                        if (type.equals("Income")) {
+                            balance += amt;
+                            if (totalBalance.containsKey(t.getMonth()))
+                                totalBalance.replace(t.getMonth(), balance);
+                            else
+                                totalBalance.put(t.getMonth(), balance);
+                        } else if (type.equals("Expense")) {
+                            balance -= amt;
+                            if (totalBalance.containsKey(t.getMonth()))
+                                totalBalance.replace(t.getMonth(), balance);
+                            else
+                                totalBalance.put(t.getMonth(), balance);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        //load balances into Values List for graph
+        for (Map.Entry<Integer, Double> entry: totalBalance.entrySet()){
+            Integer date = entry.getKey();
+            double bal = entry.getValue();
+
+            chartValues.add(new Entry(date, (float)bal));
+
+            if (bal > yAxisMax) {
+                yAxisMax = bal;}
+            if (bal < yAxisMin) {
+                yAxisMin = bal;}
+            if (date > xAxisMax) {
+                xAxisMax = date;}
+            if (date < xAxisMin) {xAxisMin = date;}
+        }
+
+        //sort final chart values by date
+        chartValues.sort(Comparator.comparingInt(o -> (int) o.getX()));
+    }
+
+    public void setAxes() {
+        LineChart lineChart = view.findViewById(R.id.linechart);
+        YAxis leftAxis = lineChart.getAxisLeft();
+        XAxis xAxis = lineChart.getXAxis();
+
+        leftAxis.setAxisMaximum((float)(yAxisMax + (yAxisMax / 20)));
+        leftAxis.setAxisMinimum((float)(yAxisMin - (yAxisMin / 20)));
+        double buffer = ((xAxisMax - xAxisMin) / 10.0);
+        xAxis.setAxisMaximum((float)(xAxisMax + buffer));
+        xAxis.setAxisMinimum((float)(xAxisMin - buffer));
+    }
+
+    private void setLineChartData() {
+        LineChart lineChart = view.findViewById(R.id.linechart);
+        LineDataSet set1;
+
+        if (lineChart.getData() != null &&
+                lineChart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+            set1.setValues(chartValues);
+            set1.notifyDataSetChanged();
+            lineChart.getData().notifyDataChanged();
+            lineChart.notifyDataSetChanged();
+        } else {
+            set1 = new LineDataSet(chartValues, "Balance");
+            set1.setDrawIcons(false);
+            set1.setColor(Color.DKGRAY);
+            set1.setCircleColor(Color.DKGRAY);
+            set1.setLineWidth(2f);
+            set1.setCircleRadius(6f);
+            set1.setDrawCircleHole(false);
+            set1.setDrawFilled(true);
+            set1.setFormLineWidth(1f);
+            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+            set1.setFormSize(15.f);
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+            LineData data = new LineData(dataSets);
+            data.setValueTextSize(20f);
+            lineChart.setData(data);
+        }
     }
 
     @Override
