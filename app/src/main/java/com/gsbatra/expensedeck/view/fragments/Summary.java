@@ -356,14 +356,24 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     @Override
     public void onAmountsDataReceived(double balance, double income, double expense, int size, String Suggestion) {
-        /*NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        format.setCurrency(Currency.getInstance("USD"));
-        String balanceMTD = format.format(balance);//
-        String balanceYTD = format.format(balance);//
-
-        TextView balanceMTD_tv = view.findViewById(R.id.list_child_MTD_balance);
-        balanceMTD_tv.setText(balanceMTD);
-        TextView balanceYTD_tv = view.findViewById(R.id.list_child_YTD_balance);
-        balanceYTD_tv.setText(balanceYTD);*/
+//        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+//        format.setCurrency(Currency.getInstance("USD"));
+//        String balance_MTD = format.format(balance);
+//        String income_MTD = format.format(income);
+//        String expense_str = format.format(expense);
+////        String balanceMTD = format.format(balance);
+////        String balanceYTD = format.format(balance);
+//
+////        TextView suggestion_tv = view.findViewById(R.id.Suggestion_Content_sum);
+////        suggestion_tv.setText(Suggestion);
+//        TextView suggestion_exp_tv = view.findViewById(R.id.mostexpensemoney_sum);
+//        suggestion_exp_tv.setText(expense_str);
+//        TextView suggestion_tag_tv = view.findViewById(R.id.sg_transactionTag_sum);
+//        suggestion_tag_tv.setText(expense_str);
+//
+////        TextView balanceMTD_tv = view.findViewById(R.id.list_child_MTD_balance);
+////        balanceMTD_tv.setText(balanceMTD);
+////        TextView balanceYTD_tv = view.findViewById(R.id.list_child_YTD_balance);
+////        balanceYTD_tv.setText(balanceYTD);
     }
 }

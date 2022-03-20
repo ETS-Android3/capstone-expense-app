@@ -67,7 +67,6 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
         String balance_str = format.format(balance);
         String income_str = format.format(income);
         String expense_str = format.format(expense);
-        String suggest_str = format.format(suggestion);
 
         TextView balance_tv = view.findViewById(R.id.total_balance_amount);
         balance_tv.setText(balance_str);
@@ -79,7 +78,7 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
         income_tv.setText(income_str);
 
         TextView suggestion_tv = view.findViewById(R.id.Suggestion_Content);
-        suggestion_tv.setText(suggest_str);
+        suggestion_tv.setText(suggestion);
         TextView suggestion_exp_tv = view.findViewById(R.id.sg_transactionAmount);
         suggestion_exp_tv.setText(expense_str);
         TextView suggestion_tag_tv = view.findViewById(R.id.sg_transactionTag);

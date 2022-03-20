@@ -71,35 +71,30 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/suggestion_ln"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:layout_marginTop="150dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/balance_or_transactions_view">
             <TextView
                 android:id="@+id/all_Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/opensans_bold"
                 android:text="@string/suggestions"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/income_or_expense_view" />
 
-                <include
-                    android:id="@+id/Suggestion_card"
-                    layout="@layout/sugeestion_card"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
+            <include
+                android:id="@+id/Suggestion_card"
+                layout="@layout/sugeestion_card"
+                android:layout_width="380dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/all_Suggestion" />
+
 
             <TextView
                 android:id="@+id/title_recent_transaction"
@@ -112,7 +107,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/suggestion_ln" />
+                app:layout_constraintTop_toBottomOf="@+id/Suggestion_card" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transactions_rv"

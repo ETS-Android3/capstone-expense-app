@@ -30,28 +30,31 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart"
                     android:layout_width="match_parent"
-                    android:layout_height="354dp"
+                    android:layout_height="422dp"
                     android:background="@color/black">
 
                 </com.github.mikephil.charting.charts.PieChart>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
+<!--                <TextView-->
+<!--                    android:id="@+id/Suggestion"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:fontFamily="@font/opensans_bold"-->
+<!--                    android:text="Suggestions :"-->
+<!--                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp" />-->
 
-                    <TextView
-                        android:id="@+id/Suggestion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/opensans_bold"
-                        android:text="Suggestions :"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                </RelativeLayout>
+<!--                <include-->
+<!--                    android:id="@+id/Suggestion_card"-->
+<!--                    layout="@layout/sugeestion_card"-->
+<!--                    android:layout_width="380dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_weight="1" />-->
 
                 <TextView
                     android:id="@+id/title_Your_Monthly"

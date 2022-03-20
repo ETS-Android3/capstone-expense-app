@@ -189,14 +189,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     private void onResult(double balance, double income, double expense, int size, String suggestion) {
         if(onAmountsDataReceivedListener != null){
-            onAmountsDataReceivedListener.onAmountsDataReceived(balance, income, expense, size,suggestion);
+            onAmountsDataReceivedListener.onAmountsDataReceived(balance, income, expense, size, suggestion);
         }
     }
 
     private OnAmountsDataReceivedListener onAmountsDataReceivedListener;
 
     public interface OnAmountsDataReceivedListener {
-        void onAmountsDataReceived(double balance, double income, double expense, int size, String  Suggestion);
+        void onAmountsDataReceived(double balance, double income, double expense, int size, String Suggestion);
     }
 
     public void setOnAmountsDataReceivedListener(OnAmountsDataReceivedListener listener){
