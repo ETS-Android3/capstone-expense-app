@@ -25,7 +25,7 @@ public abstract class SubscriptionDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             SubscriptionDatabase.class, "subscription_database")
                             .addCallback(createSubscriptionDatabaseCallback)
-                            .build();
+                            .fallbackToDestructiveMigration().build();
                 }
             }
         }
