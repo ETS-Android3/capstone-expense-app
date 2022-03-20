@@ -146,11 +146,43 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
 
         balance = income + expense * -1;
-        if (balance < 0){
-            suggestion = "save money";
+        if (balance < 100){
+            suggestion = "Your balance is very low, you should start saving";
         }
-        else if(balance > 0){
-            suggestion = "spend money";
+        else if(balance >= 100 && balance < 500){
+            if(expense > income){
+                suggestion = "Your financial situation is bad, you should decrease the expense immediately";
+            }
+            else if(income > expense){
+                suggestion = "Your financial situation is bad, you should increase the income immediately";
+            }
+        }
+        else if(balance >= 500 && balance < 1000){
+            if(expense > income){
+                suggestion = "Your financial situation is not good, you should decrease the expense";
+            }
+            else if(income > expense){
+                suggestion = "Your financial situation is not good, you should increase the income";
+            }
+        }
+        else if(balance >= 1000 && balance < 1500){
+            if(expense > income){
+                suggestion = "Your financial situation is okay, you should decrease the expense";
+            }
+            else if(income > expense){
+                suggestion = "Your financial situation is okay, you should increase the income";
+            }
+        }
+        else if(balance >= 1500 && balance < 2000){
+            if(expense > income){
+                suggestion = "Your financial situation is good, keep it going!";
+            }
+            else if(income > expense){
+                suggestion = "Your financial situation is good, keep it going!";
+            }
+        }
+        else if(balance > 2000){
+            suggestion = "Your financial situation is very good! Congratulations!";
         }
         onResult(balance, income, expense, getItemCount(),suggestion);
     }

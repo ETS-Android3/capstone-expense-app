@@ -32,6 +32,8 @@
     <string name="subscriptionTab">Subscriptions</string>
     <string name="goalTab">Goals</string>
     <string name="suggestions">Suggestions</string>
+    <string name="mostexpense">Your biggest expense is :</string>
+    <string name="mostexpensemoney">Total expense on it :</string>
     <string-array name="spinner_type_entries">
         <item>Other</item>
         <item>Stocks</item>
