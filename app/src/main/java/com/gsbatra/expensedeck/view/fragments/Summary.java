@@ -45,6 +45,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     List<String> listGroup;
     HashMap<String,List<String>> listItem;
     SummaryAdapter adapter;
+    double balance,expense,income;
 
     public static HashMap<String, Double> EmapMTD = new HashMap<>();
     public static HashMap<String, Double> EmapYTD = new HashMap<>();
@@ -150,6 +151,10 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         adapter.notifyDataSetChanged();
     }
 
+    public void setSuggestions(List<Transaction> transactions) {
+
+
+    }
     public void setTransactions(List<Transaction> transactions) {
         String mFormat="MM";
         SimpleDateFormat dateFormat=new SimpleDateFormat(mFormat, Locale.US);
@@ -306,9 +311,12 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
 
     public void createPieChart(HashMap<String, Integer> map){
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        format.setCurrency(Currency.getInstance("USD"));
         PieChart pieChart = view.findViewById(R.id.pieChart);
         Typeface reg_tf = ResourcesCompat.getFont(getContext(), R.font.opensans_regular);
         Typeface semi_tf = ResourcesCompat.getFont(getContext(), R.font.opensans_semibold);
+        String balance_str = format.format(balance);
 
         ArrayList<PieEntry> temp = new ArrayList<>();
         for(String key : map.keySet()) {
@@ -336,7 +344,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         pieData.setValueTypeface(reg_tf);
         pieChart.setData(pieData);
         pieChart.getDescription().setEnabled(false);
-        pieChart.setCenterText("Transactions");
+        pieChart.setCenterText("Transactions\n" + "Balance:" + String.valueOf(format.format(balance)));
         pieChart.setCenterTextTypeface(semi_tf);
         pieChart.setCenterTextSize(24f);
         pieChart.setCenterTextColor(Color.WHITE);

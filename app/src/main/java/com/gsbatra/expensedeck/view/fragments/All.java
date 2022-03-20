@@ -45,7 +45,7 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.all_fragment, container, false);
 
-        // set up the RecyclerView
+        // set up the Transaction RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.transactions_rv);
         adapter = new TransactionAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -57,6 +57,7 @@ public class All extends Fragment implements TransactionAdapter.OnAmountsDataRec
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
         return view;
+
     }
 
     @Override

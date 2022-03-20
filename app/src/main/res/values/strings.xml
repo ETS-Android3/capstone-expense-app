@@ -31,6 +31,7 @@
     <string name="text_delete_transaction">Delete</string>
     <string name="subscriptionTab">Subscriptions</string>
     <string name="goalTab">Goals</string>
+    <string name="suggestions">Suggestions</string>
     <string-array name="spinner_type_entries">
         <item>Other</item>
         <item>Stocks</item>
