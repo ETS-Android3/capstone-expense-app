@@ -3,12 +3,17 @@ package com.gsbatra.expensedeck.view.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,9 +39,11 @@ public class Subscription extends Fragment implements SubscriptionAdapter.OnAmou
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     private View view;
+    private SubscriptionAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +53,7 @@ public class Subscription extends Fragment implements SubscriptionAdapter.OnAmou
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recurring_subscriptions_rv);
-        SubscriptionAdapter adapter = new SubscriptionAdapter(getActivity());
+        adapter = new SubscriptionAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setNestedScrollingEnabled(false);
@@ -73,5 +80,27 @@ public class Subscription extends Fragment implements SubscriptionAdapter.OnAmou
         recurring_tv.setText(recurring_str);
         TextView subscriptions_tv = view.findViewById(R.id.total_subscriptions_amount);
         subscriptions_tv.setText(String.valueOf(size));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setQueryHint("Search subscriptions...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 }
