@@ -68,31 +68,6 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
         return view;
     }
 
-    /*
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setQueryHint("Search goals...");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return true;
-            }
-        });
-    }
-
-     */
-
     @Override
     public void onAmountsDataReceived(double recurring, int size) {
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());

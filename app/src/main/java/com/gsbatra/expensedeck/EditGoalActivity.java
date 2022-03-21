@@ -76,7 +76,7 @@ public class EditGoalActivity extends AppCompatActivity {
         @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), AlertDialog.THEME_HOLO_DARK);
             int goal_id = getArguments().getInt("id");
             final String title = getArguments().getString("title");
             builder.setTitle(title)

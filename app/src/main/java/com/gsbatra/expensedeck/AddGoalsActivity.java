@@ -1,5 +1,7 @@
 package com.gsbatra.expensedeck;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -47,7 +49,7 @@ public class AddGoalsActivity extends AppCompatActivity {
         });
     }
 
-    private void saveGoal(View v){
+    private void saveGoal(View v) {
         updateDatabase();
     }
 
@@ -75,6 +77,20 @@ public class AddGoalsActivity extends AppCompatActivity {
             GoalDatabase.update(goal);
         }
 
-        finish(); // Quit activity
+        if(Integer.parseInt(amount) > Integer.parseInt(amountTotal)) {
+            new AlertDialog.Builder(AddGoalsActivity.this, AlertDialog.THEME_HOLO_DARK)
+                    .setTitle("Notice")
+                    .setMessage("The amount entered exceeds the amount total.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish(); // Quit activity
+                        }
+                    }).show();
+        }
+        else {
+            finish(); // Quit activity
+        }
     }
 }
