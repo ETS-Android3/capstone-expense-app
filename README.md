@@ -14,5 +14,6 @@ Expense Deck is an Android application that keeps track of your monthly expenses
   <img src ="phase1/temp_gui.jpg" width="170" height="300">
   <img src ="phase1/temp_gui2.JPEG" width="170" height="300">
   <img src ="phase1/graph.jpg" width="195" height="250">
+    <img src ="phase1/goals_tab.png" width="170" height="300">
 </p>
 
