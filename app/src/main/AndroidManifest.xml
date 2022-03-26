@@ -23,6 +23,11 @@
         <activity android:name=".AddSubscriptionActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
+        <activity android:name=".AddGoalsActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".EditGoalActivity"
+            android:windowSoftInputMode="adjustPan">
         <activity android:name=".EditSubscriptionActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
