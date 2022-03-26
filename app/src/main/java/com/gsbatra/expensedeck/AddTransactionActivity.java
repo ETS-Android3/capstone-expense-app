@@ -1,9 +1,11 @@
 package com.gsbatra.expensedeck;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,16 +15,37 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.db.TransactionDatabase;
 
-public class AddActivity extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+public class AddTransactionActivity extends AppCompatActivity {
     private int transaction_id;
+    final Calendar myCalendar = Calendar.getInstance();
     private final String[] type = new String[] {"Income", "Expense"};
     private final String[] tag = new String[] {"Utilities", "Entertainment", "Healthcare", "Transportation", "Housing",
             "Investing", "Food", "Insurance",  "Other"};
+    TextInputEditText whentext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_transaction);
+
+        whentext = findViewById(R.id.et_when);
+        DatePickerDialog.OnDateSetListener date1 = (datePicker, yr, mt, dy) -> {
+            myCalendar.set(Calendar.YEAR, yr);
+            myCalendar.set(Calendar.MONTH, mt);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dy);
+            updateLabel();
+        };
+        whentext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(AddTransactionActivity.this,date1,myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, R.layout.dropdown_type, type);
         AutoCompleteTextView typeDropdown = findViewById(R.id.et_transactionType);
@@ -37,6 +60,12 @@ public class AddActivity extends AppCompatActivity {
             setEditTransaction();
         }
         findViewById(R.id.btn_save_transaction).setOnClickListener(this::saveTransaction);
+    }
+
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
+        whentext.setText(dateFormat.format(myCalendar.getTime()));
     }
 
     private void setEditTransaction() {
@@ -61,14 +90,14 @@ public class AddActivity extends AppCompatActivity {
         String type = typeTextView.getEditableText().toString();
         AutoCompleteTextView tagTextView = findViewById(R.id.et_transactionTag);
         String tag = tagTextView.getEditableText().toString();
+        String when = ((TextInputEditText) findViewById(R.id.et_when)).getText().toString();
 
-        if(title.equals("") || amount.equals("") || type.equals("") || tag.equals("")){
-            Toast.makeText(getApplicationContext(), "Title, Amount, Type, and Tag are required", Toast.LENGTH_SHORT).show();
+        if(title.equals("") || amount.equals("") || type.equals("") || tag.equals("") || when.equals("")){
+            Toast.makeText(getApplicationContext(), "Fill out the required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String note = ((TextInputEditText) findViewById(R.id.et_note)).getText().toString();
-        String when = ((TextInputEditText) findViewById(R.id.et_when)).getText().toString();
 
         Transaction transaction = new Transaction(transaction_id == -1 ? 0 : transaction_id,
                 title, Double.parseDouble(amount), type, tag, note, when);

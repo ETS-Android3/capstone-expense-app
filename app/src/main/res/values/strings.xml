@@ -21,10 +21,12 @@
     <string name="text_title">Title</string>
     <string name="text_amount">Amount</string>
     <string name="text_amount_total">Amount Total</string>
+    <string name="text_title">Title *</string>
+    <string name="text_amount">Amount *</string>
     <string name="text_expense_dollars">Amount</string>
-    <string name="text_type">Type</string>
-    <string name="text_tag">Tag</string>
-    <string name="text_when">When</string>
+    <string name="text_type">Type *</string>
+    <string name="text_tag">Tag *</string>
+    <string name="text_when">When *</string>
     <string name="text_save_transaction">Save Transaction</string>
     <string name="text_save_goal">Save Goal</string>
     <string name="text_note">Note</string>
@@ -57,6 +59,32 @@
     <string name="subscription_category_text">Entertainment</string>
     <string name="subscription_amount_text">-$15</string>
     <string name="all_recurring_subscription">All Subscriptions</string>
+
     <string name="all_goals">All Goals</string>
     <string name="mainfab_goal">add goal</string>
+    <string name="text_save_goal">Save Goal</string>
+    <string name="text_save_subscription">Save Subscription</string>
+    <string name="mainfab_desc">add transaction</string>
+    
+    <string name="expenseslist1">Expenses</string>
+    <string name="incomelist1">Income</string>
+    <string name="search">Search</string>
+
+    <string-array name="expenseslist1">
+        <item>Utilities</item>
+        <item>Entertainment</item>
+        <item>Healthcare</item>
+        <item>Transportation</item>
+        <item>Housing</item>
+        <item>Investing</item>
+    </string-array>
+
+    <string-array name="incomelist1">
+        <item>Utilities</item>
+        <item>Entertainment</item>
+        <item>Healthcare</item>
+        <item>Transportation</item>
+        <item>Housing</item>
+        <item>Investing</item>
+    </string-array>
 </resources>

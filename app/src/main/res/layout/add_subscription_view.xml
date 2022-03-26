@@ -38,26 +38,6 @@
             android:fontFamily="@font/opensans_regular"
             android:inputType="numberDecimal" />
 
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_transactionType_view"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/text_type">
-
-        <AutoCompleteTextView
-            android:id="@+id/et_transactionType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            android:fontFamily="@font/opensans_regular"
-            android:labelFor="@id/et_transactionType"
-            />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -65,11 +45,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/text_tag">
+        android:layout_margin="16dp">
 
         <AutoCompleteTextView
             android:id="@+id/et_transactionTag"
+            android:hint="@string/text_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -90,27 +70,6 @@
             android:id="@+id/et_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/opensans_regular"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_when_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="@string/text_when"
-        app:endIconDrawable="@drawable/ic_baseline_calendar"
-        app:endIconMode="custom">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_when"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
             android:fontFamily="@font/opensans_regular"
             android:inputType="text" />
 

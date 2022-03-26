@@ -46,6 +46,7 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.goal_fragment, container, false);
 

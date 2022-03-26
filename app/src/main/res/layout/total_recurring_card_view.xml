@@ -46,7 +46,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline" />
 
             <TextView
-                android:id="@+id/total_expense_amount"
+                android:id="@+id/total_recurring_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
