@@ -52,11 +52,10 @@
     
     <string name="expenseslist1">Expenses</string>
     <string name="incomelist1">Income</string>
-    <string name="balance_this_month">Balance This Month</string>
-    <string name="balance_this_year">Balance This Year</string>
+    <string name="balance">Balance</string>
     <string name="interval">Interval:</string>
-    <string name="monthly">Monthly</string>
-    <string name="yearly">Yearly</string>
+    <string name="monthly">This Month</string>
+    <string name="yearly">This Year</string>
     <string name="day">Day</string>
     <string name="month">Month</string>
 

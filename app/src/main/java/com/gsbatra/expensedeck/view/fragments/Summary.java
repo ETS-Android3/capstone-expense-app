@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -33,6 +34,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.db.TransactionViewModel;
@@ -135,6 +137,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
         TextView monthlydate_tv = view.findViewById(R.id.MonthlyDate);
         monthlydate_tv.setText(caldate);
+        RadioButton radio1 = view.findViewById(R.id.activity_main_monthly);
+        radio1.setChecked(true);
 
         TransactionAdapter adapter = new TransactionAdapter(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -169,6 +173,16 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     }
 
     public void setTransactions(List<Transaction> transactions) {
+        // Update the chart
+        LineChart lineChart = view.findViewById(R.id.linechart);
+        lineChart.notifyDataSetChanged();
+        lineChart.invalidate();
+        chartValues.clear();
+        createLineChart(transactions);
+        getValues(transactions);
+        setAxes();
+        setLineChartData();
+
         String mFormat="MM";
         SimpleDateFormat dateFormat=new SimpleDateFormat(mFormat, Locale.US);
         String currentmonth = dateFormat.format(rightNow.getTime());
@@ -274,7 +288,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
         }
         createPieChart(map);
-        createLineChart(transactions);
 
         double balance_mtd = 0;
 
@@ -367,13 +380,15 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         LineChart lineChart = view.findViewById(R.id.linechart);
         RadioButton radio1 = view.findViewById(R.id.activity_main_monthly);
         RadioButton radio2 = view.findViewById(R.id.activity_main_yearly);
-        radio1.setChecked(true);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setDrawLimitLinesBehindData(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(14f);
+        xAxis.setTextColor(Color.WHITE);
+        xAxis.setAxisLineColor(Color.WHITE);
+        xAxis.setGridColor(Color.WHITE);
 
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.removeAllLimitLines();
@@ -381,16 +396,16 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         leftAxis.setDrawZeroLine(false);
         leftAxis.setDrawLimitLinesBehindData(false);
         leftAxis.setTextSize(14f);
+        leftAxis.setTextColor(Color.WHITE);
+        leftAxis.setAxisLineColor(Color.WHITE);
+        leftAxis.setGridColor(Color.WHITE);
 
         lineChart.getAxisRight().setEnabled(false);
         lineChart.setPinchZoom(true);
         lineChart.setDescription(null);
         lineChart.getLegend().setEnabled(false);
         lineChart.setExtraBottomOffset(8f);
-
-        getValues(transactions);
-        setAxes();
-        setLineChartData();
+        lineChart.setBackgroundColor(Color.BLACK);
 
         radio1.setOnClickListener(v -> {
             lineChart.notifyDataSetChanged();
@@ -412,7 +427,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     @SuppressLint("NonConstantResourceId")
     public void getValues(List<Transaction> transactions){
         RadioGroup radioGroup = view.findViewById(R.id.activity_main_timeinterval);
-        TextView chartTitle = view.findViewById(R.id.chart_title);
         TextView xAxisLabel = view.findViewById(R.id.xaxis_label);
         xAxisMax = Integer.MIN_VALUE;
         xAxisMin = Integer.MAX_VALUE;
@@ -423,12 +437,10 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         String frequency;
         if (radioGroup.getCheckedRadioButtonId() == R.id.activity_main_monthly) {
             frequency = "monthly";
-            chartTitle.setText(getResources().getString(R.string.balance_this_month));
             xAxisLabel.setText(getResources().getString(R.string.day));
         }
         else {
             frequency = "yearly";
-            chartTitle.setText(getResources().getString(R.string.balance_this_year));
             xAxisLabel.setText(getResources().getString(R.string.month));
         }
 
@@ -543,8 +555,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         } else {
             set1 = new LineDataSet(chartValues, "Balance");
             set1.setDrawIcons(false);
-            set1.setColor(Color.DKGRAY);
-            set1.setCircleColor(Color.DKGRAY);
+            set1.setColor(Color.WHITE);
+            set1.setCircleColor(Color.WHITE);
             set1.setLineWidth(2f);
             set1.setCircleRadius(6f);
             set1.setDrawCircleHole(false);
@@ -556,6 +568,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             dataSets.add(set1);
             LineData data = new LineData(dataSets);
             data.setValueTextSize(20f);
+            data.setValueTextColor(Color.WHITE);
             lineChart.setData(data);
         }
     }
