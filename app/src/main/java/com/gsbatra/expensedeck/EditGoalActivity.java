@@ -53,16 +53,20 @@ public class EditGoalActivity extends AppCompatActivity {
 
     private void updateTextViews() {
         TextView title_tv = findViewById(R.id.title);
-        TextView amount_tv = findViewById(R.id.amount);
-        TextView amountTotal_tv = findViewById(R.id.amountTotal);
+        TextView amount_tv = findViewById(R.id.amount_total);
+        TextView type_tv = findViewById(R.id.type);
         TextView tag_tv = findViewById(R.id.tag);
+        TextView startdate_tv = findViewById(R.id.startdate);
+        TextView enddate_tv = findViewById(R.id.enddate);
         TextView note_tv = findViewById(R.id.note);
 
         GoalDatabase.getGoal(this.id, goal -> {
             title_tv.setText(goal.title);
-            amount_tv.setText(String.valueOf(goal.amount));
-            amountTotal_tv.setText(String.valueOf(goal.amountTotal));
+            amount_tv.setText(String.valueOf(goal.amountTotal));
+            type_tv.setText(goal.type);
             tag_tv.setText(goal.tag);
+            startdate_tv.setText(goal.startDate);
+            enddate_tv.setText(goal.endDate);
             note_tv.setText(goal.note);
         });
     }

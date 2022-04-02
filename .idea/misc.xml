@@ -9,21 +9,31 @@
         <entry key="app/src/main/res/drawable/ic_baseline_repeat_24.xml" value="0.2105" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_settings.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/ic_facebook_logo.xml" value="0.1215" />
+        <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.1065" />
+        <entry key="app/src/main/res/drawable/ic_google_plus.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.1065" />
+        <entry key="app/src/main/res/drawable/ic_twitter_logo.xml" value="0.1065" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.107" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18795166015624998" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.16458333333333333" />
         <entry key="app/src/main/res/layout/add_goal_view.xml" value="0.2737504378609036" />
         <entry key="app/src/main/res/layout/add_subscription_view.xml" value="0.16770833333333332" />
-        <entry key="app/src/main/res/layout/add_transaction_view.xml" value="0.3990815535835598" />
+        <entry key="app/src/main/res/layout/add_transaction_view.xml" value="0.2055419921875" />
         <entry key="app/src/main/res/layout/all_fragment.xml" value="0.21439985192340352" />
         <entry key="app/src/main/res/layout/dropdown_type.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/layout/expense_fragment.xml" value="0.14402173913043478" />
-        <entry key="app/src/main/res/layout/fragment_add_goal.xml" value="0.3814912215523098" />
+        <entry key="app/src/main/res/layout/fragment_add_goal.xml" value="0.3088851928710938" />
         <entry key="app/src/main/res/layout/fragment_add_subscription.xml" value="0.24944623864215354" />
         <entry key="app/src/main/res/layout/fragment_add_transaction.xml" value="0.33091901696246606" />
+        <entry key="app/src/main/res/layout/fragment_edit_delete_goal.xml" value="0.20700528794440673" />
         <entry key="app/src/main/res/layout/fragment_edit_delete_subscription.xml" value="0.2627105712890625" />
         <entry key="app/src/main/res/layout/fragment_edit_delete_transaction.xml" value="0.11875" />
+        <entry key="app/src/main/res/layout/goal_card_view.xml" value="0.2781480208687161" />
+        <entry key="app/src/main/res/layout/goal_details_view.xml" value="0.30082644628099175" />
         <entry key="app/src/main/res/layout/goal_fragment.xml" value="0.33023935953776046" />
+        <entry key="app/src/main/res/layout/google_signin.xml" value="0.17036132812500004" />
         <entry key="app/src/main/res/layout/income_fragment.xml" value="0.2847443953804348" />
         <entry key="app/src/main/res/layout/list_group.xml" value="0.128125" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.128125" />
@@ -42,6 +52,7 @@
         <entry key="app/src/main/res/layout/transaction_card_view.xml" value="0.31768035888671875" />
         <entry key="app/src/main/res/layout/transaction_details_view.xml" value="0.28257917321246606" />
         <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.3308731079101563" />
+        <entry key="app/src/main/res/menu/toolbar_menu_nosearch.xml" value="0.24947916666666667" />
       </map>
     </option>
   </component>

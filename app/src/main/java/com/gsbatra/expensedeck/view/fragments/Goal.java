@@ -1,9 +1,13 @@
 package com.gsbatra.expensedeck.view.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,18 +19,28 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.gsbatra.expensedeck.AddGoalsActivity;
 import com.gsbatra.expensedeck.R;
+import com.gsbatra.expensedeck.SignInActivity;
 import com.gsbatra.expensedeck.db.GoalViewModel;
+import com.gsbatra.expensedeck.db.TransactionViewModel;
 import com.gsbatra.expensedeck.view.adapter.GoalAdapter;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedListener {
 
@@ -35,6 +49,17 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
 
     public Goal() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null){
+            Toast.makeText(getActivity(), "Please Sign In", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), SignInActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -58,6 +83,8 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
         GoalViewModel goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
+        TransactionViewModel transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+        transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), adapter::setTransactions);
         goalViewModel.getAllGoals().observe(getViewLifecycleOwner(), adapter::setGoals);
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
@@ -81,7 +108,7 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
         goals_tv.setText(String.valueOf(size));
     }
 
-    /*
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -104,5 +131,45 @@ public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedL
         });
     }
 
-     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.signout){
+            displayDialog();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void displayDialog() {
+        DisplayDialog signOutDialog = new DisplayDialog();
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+        String name = "Sign out";
+        if(signInAccount != null)
+            name = signInAccount.getDisplayName();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        signOutDialog.setArguments(args);
+        signOutDialog.show(getParentFragmentManager(), "signOutDialog");
+    }
+
+    public static class DisplayDialog extends DialogFragment {
+        @NotNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), android.app.AlertDialog.THEME_HOLO_DARK);
+            final String name = getArguments().getString("name");
+            builder.setTitle(name)
+                    .setMessage("Are you sure you want to sign out?")
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        FirebaseAuth.getInstance().signOut();
+                        GoogleSignIn.getClient(
+                                getContext(),
+                                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                        ).signOut();
+                        Intent intent = new Intent(getActivity(), SignInActivity.class);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Cancel", (dialog, id) -> {});
+            return builder.create();
+        }
+    }
 }

@@ -12,17 +12,24 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsbatra.expensedeck.EditGoalActivity;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.Goal;
+import com.gsbatra.expensedeck.db.GoalViewModel;
+import com.gsbatra.expensedeck.db.Transaction;
+import com.gsbatra.expensedeck.db.TransactionViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,11 +37,13 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
     private List<Goal> goals;
     private List<Goal> goalsAll;
+    private List<Transaction> transactions;
     private OnAmountsDataReceivedListener onAmountsDataReceivedListener;
 
     public static class GoalViewHolder extends RecyclerView.ViewHolder {
         private final TextView goalName;
         private final TextView goalTag;
+        private final TextView goalDate;
         private final TextView goalAmount;
         private final TextView goalAmountTotal;
 
@@ -42,6 +51,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             super(itemView);
             goalName = itemView.findViewById(R.id.goalName);
             goalTag = itemView.findViewById(R.id.goalTag);
+            goalDate = itemView.findViewById(R.id.goalDate);
             goalAmount = itemView.findViewById(R.id.goalAmount);
             goalAmountTotal = itemView.findViewById(R.id.goal);
         }
@@ -100,21 +110,62 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull GoalViewHolder holder, int position) {
-        holder.goalName.setText(goals.get(position).title);
-        holder.goalTag.setText(goals.get(position).tag);
+        // goal attributes
+        String goalStart = goals.get(position).startDate;
+        String goalEnd = goals.get(position).endDate;
+        String type = goals.get(position).type;
+        String tag = goals.get(position).tag;
+        String title = goals.get(position).title;
+        double amount_total = goals.get(position).amountTotal;
+
+        String startDate_cap = goalStart.substring(0, 5);
+        String endDate_cap = goalEnd.substring(0, 5);
+        holder.goalName.setText(title);
+        holder.goalTag.setText(tag);
+        holder.goalDate.setText(startDate_cap + " - " + endDate_cap);
+
+        double amount = 0;
+        try {
+            String date_format = "MM/dd/yy";
+            SimpleDateFormat sdf = new SimpleDateFormat(date_format, Locale.US);
+            Date start = sdf.parse(goalStart);
+            Date end = sdf.parse(goalEnd);
+            for (Transaction transaction : transactions) {
+                Date trans_date = sdf.parse(transaction.when);
+                boolean isDateValid = ((trans_date.equals(start) || trans_date.equals(end)) ||
+                        (trans_date.after(start) && trans_date.before(end)));
+                if (tag.equals(transaction.tag) && isDateValid)
+                    amount += transaction.amount;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
-
-        String amount_str = format.format(goals.get(position).amount);
-        String amountTotal_str = format.format(goals.get(position).amountTotal);
+        String amount_str = format.format(amount);
+        String amountTotal_str = format.format(amount_total);
 
         holder.goalAmount.setText(amount_str);
-        holder.goalAmount.setTextColor(Color.parseColor("#e7e6e1"));
-
-        // get goal amount total
         holder.goalAmountTotal.setText(amountTotal_str);
-        holder.goalAmountTotal.setTextColor(Color.parseColor("#6FCF97"));
+
+        if(type.equals("Income")) {
+            if(amount < goals.get(position).amountTotal) {
+                // red (goal is not being met)
+                holder.goalAmountTotal.setTextColor(Color.parseColor("#EB5757"));
+            } else {
+                // green (goal is being met)
+                holder.goalAmountTotal.setTextColor(Color.parseColor("#6FCF97"));
+            }
+        } else {
+            if(amount > goals.get(position).amountTotal) {
+                // red (goal is not being met)
+                holder.goalAmountTotal.setTextColor(Color.parseColor("#EB5757"));
+            } else {
+                // green (goal is being met)
+                holder.goalAmountTotal.setTextColor(Color.parseColor("#6FCF97"));
+            }
+        }
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), EditGoalActivity.class);
@@ -136,6 +187,12 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+        notifyDataSetChanged();
+    }
+
     public void getAmounts(){
         if(goals == null) {
             onResult(0, 0);
@@ -144,7 +201,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
         double recurring = 0;
         for(Goal goal : goals){
-            recurring += goal.amount;
+            recurring += goal.amountTotal;
         }
 
         onResult(recurring, getItemCount());

@@ -20,16 +20,16 @@
     <string name="summaryTab">Summary</string>
     <string name="text_title">Title</string>
     <string name="text_amount">Amount</string>
-    <string name="text_amount_total">Amount Total</string>
-    <string name="text_title">Title *</string>
-    <string name="text_amount">Amount *</string>
-    <string name="text_expense_dollars">Amount</string>
-    <string name="text_type">Type *</string>
-    <string name="text_tag">Tag *</string>
-    <string name="text_when">When *</string>
-    <string name="text_save_transaction">Save Transaction</string>
-    <string name="text_save_goal">Save Goal</string>
+    <string name="text_type">Type</string>
     <string name="text_note">Note</string>
+    <string name="text_when">When</string>
+    <string name="text_tag">Tag</string>
+    <string name="text_title_req">Title *</string>
+    <string name="text_amount_req">Amount *</string>
+    <string name="text_type_req">Type *</string>
+    <string name="text_tag_req">Tag *</string>
+    <string name="text_when_req">When *</string>
+    <string name="text_save_transaction">Save Transaction</string>
     <string name="text_dollar">$</string>
     <string name="text_edit_transaction">Edit</string>
     <string name="text_delete_transaction">Delete</string>
@@ -65,10 +65,19 @@
     <string name="text_save_goal">Save Goal</string>
     <string name="text_save_subscription">Save Subscription</string>
     <string name="mainfab_desc">add transaction</string>
-    
+
     <string name="expenseslist1">Expenses</string>
     <string name="incomelist1">Income</string>
     <string name="search">Search</string>
+    <string name="text_startdate_req">Start Date *</string>
+    <string name="text_enddate_req">End Date *</string>
+    <string name="text_startdate">Start Date</string>
+    <string name="text_enddate">End Date</string>
+    <string name="goal_date_text">01/01 - 12/31</string>
+    <string name="transaction_date_text">01/01/2000</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in_google">SIGN IN WITH GOOGLE</string>
+    <string name="sign_out">Sign out</string>
 
     <string-array name="expenseslist1">
         <item>Utilities</item>

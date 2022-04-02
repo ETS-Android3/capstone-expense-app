@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/text_title">
+        android:hint="@string/text_title_req">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
@@ -24,28 +24,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_amount_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/text_amount"
-        app:prefixText="@string/text_dollar">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/opensans_regular"
-            android:inputType="numberDecimal" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_amountTotal_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/text_amount_total"
+        android:hint="@string/text_amount_req"
         app:prefixText="@string/text_dollar">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -58,6 +41,25 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_transactionType_view"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/text_type_req">
+
+        <AutoCompleteTextView
+            android:id="@+id/et_transactionType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:fontFamily="@font/opensans_regular"
+            android:labelFor="@id/et_transactionType"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_transactionTag_view"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
@@ -66,13 +68,55 @@
 
         <AutoCompleteTextView
             android:id="@+id/et_transactionTag"
-            android:hint="@string/text_tag"
+            android:hint="@string/text_tag_req"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
             android:fontFamily="@font/opensans_regular"
             android:labelFor="@id/et_transactionTag_view"
             />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_startdate_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/text_startdate_req"
+        app:endIconDrawable="@drawable/ic_baseline_calendar"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_startdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:fontFamily="@font/opensans_regular"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_enddate_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/text_enddate_req"
+        app:endIconDrawable="@drawable/ic_baseline_calendar"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_enddate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:fontFamily="@font/opensans_regular"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

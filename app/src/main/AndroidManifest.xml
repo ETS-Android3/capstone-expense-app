@@ -10,32 +10,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseDeck">
         <activity
+            android:name=".SignInActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ExpenseDeck.NoActionBar">
-        </activity>
-        <activity android:name=".AddTransactionActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity android:name=".EditTransactionActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity android:name=".AddSubscriptionActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity android:name=".AddGoalsActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity android:name=".EditGoalActivity"
-            android:windowSoftInputMode="adjustPan">
-        <activity android:name=".EditSubscriptionActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:theme="@style/Theme.ExpenseDeck.NoActionBar" />
+        <activity
+            android:name=".AddTransactionActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditTransactionActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddSubscriptionActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddGoalsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditGoalActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditSubscriptionActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

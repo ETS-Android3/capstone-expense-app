@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "688502772760",
+    "project_id": "expense-deck-capstone",
+    "storage_bucket": "expense-deck-capstone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688502772760:android:bf94ccd44134e08b609f6d",
+        "android_client_info": {
+          "package_name": "com.gsbatra.expensedeck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688502772760-22dg0i834r55b55mnjes6v25f6scdmc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gsbatra.expensedeck",
+            "certificate_hash": "c2d51bcd054136d97b96ef64ae415be46e8d7163"
+          }
+        },
+        {
+          "client_id": "688502772760-81gjps3mt6vo4bl9ubv4j02fv9p0se66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXXDbBrY36N0fOe_DKN-SrT4s_80VIuU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688502772760-81gjps3mt6vo4bl9ubv4j02fv9p0se66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

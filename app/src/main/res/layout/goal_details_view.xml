@@ -40,7 +40,7 @@
 
 
         <TextView
-            android:id="@+id/caption_amount"
+            android:id="@+id/caption_amount_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <TextView
-            android:id="@+id/amount"
+            android:id="@+id/amount_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -62,33 +62,34 @@
             android:fontFamily="@font/opensans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/caption_amount"
+            app:layout_constraintTop_toBottomOf="@id/caption_amount_total"
             tools:text="Amount Temp" />
 
         <TextView
-            android:id="@+id/caption_amountTotal"
+            android:id="@+id/caption_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:text="@string/text_type"
             android:fontFamily="@font/opensans_bold"
-            android:text="@string/text_amount_total"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amount" />
+            app:layout_constraintTop_toBottomOf="@id/amount_total" />
 
         <TextView
-            android:id="@+id/amountTotal"
+            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
             android:fontFamily="@font/opensans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caption_amountTotal"
-            tools:text="Amount Total Temp" />
+            app:layout_constraintTop_toBottomOf="@id/caption_type"
+            tools:text="Income Temp" />
 
         <TextView
             android:id="@+id/caption_tag"
@@ -101,7 +102,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amountTotal" />
+            app:layout_constraintTop_toBottomOf="@+id/type" />
 
         <TextView
             android:id="@+id/tag"
@@ -117,6 +118,58 @@
             tools:text="Tag Temp" />
 
         <TextView
+            android:id="@+id/caption_startdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/text_startdate"
+            android:textColor="@color/white"
+            android:fontFamily="@font/opensans_bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tag" />
+
+        <TextView
+            android:id="@+id/startdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/opensans_regular"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/caption_startdate"
+            tools:text="Start Date Temp" />
+
+        <TextView
+            android:id="@+id/caption_enddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/text_enddate"
+            android:textColor="@color/white"
+            android:fontFamily="@font/opensans_bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/startdate" />
+
+        <TextView
+            android:id="@+id/enddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/opensans_regular"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/caption_enddate"
+            tools:text="End Date Temp" />
+
+        <TextView
             android:id="@+id/caption_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,7 +180,7 @@
             android:fontFamily="@font/opensans_bold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tag" />
+            app:layout_constraintTop_toBottomOf="@id/enddate" />
 
         <TextView
             android:id="@+id/note"
