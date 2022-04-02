@@ -1,61 +1,46 @@
 package com.gsbatra.expensedeck.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.gsbatra.expensedeck.AddGoalsActivity;
 import com.gsbatra.expensedeck.R;
+import com.gsbatra.expensedeck.db.GoalViewModel;
+import com.gsbatra.expensedeck.view.adapter.GoalAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Goal#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Goal extends Fragment {
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class Goal extends Fragment implements GoalAdapter.OnAmountsDataReceivedListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private View view;
+    private GoalAdapter adapter;
 
     public Goal() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Goal.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Goal newInstance(String param1, String param2) {
-        Goal fragment = new Goal();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -63,6 +48,61 @@ public class Goal extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.goal_fragment, container, false);
+        view = inflater.inflate(R.layout.goal_fragment, container, false);
+
+        // set up the RecyclerView
+        RecyclerView recyclerView = view.findViewById(R.id.recurring_goals_rv);
+        adapter = new GoalAdapter(getActivity());
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setAdapter(adapter);
+        GoalViewModel goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
+        goalViewModel.getAllGoals().observe(getViewLifecycleOwner(), adapter::setGoals);
+        adapter.setOnAmountsDataReceivedListener(this);
+        adapter.getAmounts();
+
+        // fab
+        FloatingActionButton goal_fab = view.findViewById(R.id.goal_fab);
+        goal_fab.setOnClickListener(view -> startActivity(new Intent(getActivity(), AddGoalsActivity.class)));
+
+        return view;
     }
+
+    @Override
+    public void onAmountsDataReceived(double recurring, int size) {
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        format.setCurrency(Currency.getInstance("USD"));
+        String recurring_str = format.format(recurring);
+
+        TextView recurring_tv = view.findViewById(R.id.total_expense_amount);
+        recurring_tv.setText(recurring_str);
+        TextView goals_tv = view.findViewById(R.id.total_goals_amount);
+        goals_tv.setText(String.valueOf(size));
+    }
+
+    /*
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setQueryHint("Search goals...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
+
+     */
 }

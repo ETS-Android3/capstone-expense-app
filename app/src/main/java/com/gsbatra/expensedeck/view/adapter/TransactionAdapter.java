@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,11 +20,13 @@ import com.gsbatra.expensedeck.db.Transaction;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
+public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> implements Filterable {
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
         private final TextView transactionName;
@@ -38,6 +42,46 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     }
 
     private List<Transaction> transactions;
+    private List<Transaction> transactionsAll;
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        // background thread
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+
+            FilterResults filterResults = new FilterResults();
+            if(charSequence != null && charSequence.toString().length() > 0) {
+                List<Transaction> filteredTransactions = new ArrayList<>();
+                for(Transaction transaction : transactionsAll) {
+                    if(transaction.title.toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredTransactions.add(transaction);
+                    }
+                }
+
+                filterResults.count = filteredTransactions.size();
+                filterResults.values = filteredTransactions;
+            } else {
+                synchronized (this) {
+                    filterResults.values = transactionsAll;
+                    filterResults.count = transactionsAll.size();
+                }
+            }
+
+            return filterResults;
+        }
+
+        // ui thread
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            transactions = (List<Transaction>) filterResults.values;
+            notifyDataSetChanged();
+        }
+    };
 
     public TransactionAdapter(Context context) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -79,6 +123,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+        this.transactionsAll = transactions;
         getAmounts();
         notifyDataSetChanged();
     }

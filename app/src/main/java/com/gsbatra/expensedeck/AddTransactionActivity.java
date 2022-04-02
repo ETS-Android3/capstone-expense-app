@@ -32,20 +32,18 @@ public class AddTransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_transaction);
 
-        whentext = (TextInputEditText) findViewById(R.id.et_when);
-        DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int yr, int mt, int dy) {
-                myCalendar.set(Calendar.YEAR, yr);
-                myCalendar.set(Calendar.MONTH,mt);
-                myCalendar.set(Calendar.DAY_OF_MONTH,dy);
-                updateLabel();
-            }
+        whentext = findViewById(R.id.et_when);
+        DatePickerDialog.OnDateSetListener date1 = (datePicker, yr, mt, dy) -> {
+            myCalendar.set(Calendar.YEAR, yr);
+            myCalendar.set(Calendar.MONTH, mt);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dy);
+            updateLabel();
         };
         whentext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(AddTransactionActivity.this,date1,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(AddTransactionActivity.this,date1,myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -65,8 +63,8 @@ public class AddTransactionActivity extends AppCompatActivity {
     }
 
     private void updateLabel() {
-        String myFormat="MM/dd/yy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         whentext.setText(dateFormat.format(myCalendar.getTime()));
     }
 
@@ -92,14 +90,14 @@ public class AddTransactionActivity extends AppCompatActivity {
         String type = typeTextView.getEditableText().toString();
         AutoCompleteTextView tagTextView = findViewById(R.id.et_transactionTag);
         String tag = tagTextView.getEditableText().toString();
+        String when = ((TextInputEditText) findViewById(R.id.et_when)).getText().toString();
 
-        if(title.equals("") || amount.equals("") || type.equals("") || tag.equals("") || whentext.equals("")){
+        if(title.equals("") || amount.equals("") || type.equals("") || tag.equals("") || when.equals("")){
             Toast.makeText(getApplicationContext(), "Fill out the required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String note = ((TextInputEditText) findViewById(R.id.et_note)).getText().toString();
-        String when = ((TextInputEditText) findViewById(R.id.et_when)).getText().toString();
 
         Transaction transaction = new Transaction(transaction_id == -1 ? 0 : transaction_id,
                 title, Double.parseDouble(amount), type, tag, note, when);

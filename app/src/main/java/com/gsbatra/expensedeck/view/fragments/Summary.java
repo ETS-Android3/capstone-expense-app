@@ -60,11 +60,11 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     HashMap<String,List<String>> listItem;
     SummaryAdapter adapter;
 
-    public static HashMap<String, Double> EmapMTD = new HashMap<String, Double>();
-    public static HashMap<String, Double> EmapYTD = new HashMap<String, Double>();
+    public static HashMap<String, Double> EmapMTD = new HashMap<>();
+    public static HashMap<String, Double> EmapYTD = new HashMap<>();
 
-    public static HashMap<String, Double> ImapMTD = new HashMap<String, Double>();
-    public static HashMap<String, Double> ImapYTD = new HashMap<String, Double>();
+    public static HashMap<String, Double> ImapMTD = new HashMap<>();
+    public static HashMap<String, Double> ImapYTD = new HashMap<>();
 
     public static double monthtotalincome;
     public static double monthtotalexpenses;
@@ -164,7 +164,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         array = getResources().getStringArray(R.array.incomelist1);
         for (String item : array) {
             list2.add(item);
-            //hard-coded for now.  show income/expense for each individual item
         }
 
         listItem.put(listGroup.get(0),list1);
@@ -199,7 +198,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             Double amt = transaction.amount;
             String whn = transaction.when;
 
-            String mo = whn.substring(0,2);
+            String mo = whn.substring(0,2); //start position 0, length of two.  gets MM of the transaction
             String yr = whn.substring(Math.max(whn.length() - 2, 0)); //year
 
             if(!map.containsKey(tag)){ //
