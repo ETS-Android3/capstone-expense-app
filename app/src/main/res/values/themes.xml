@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
     </style>
 
     <style name="Theme.ExpenseDeck.NoActionBar">
@@ -23,8 +26,4 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
-
-    <style name="Theme.ExpenseDeck.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.ExpenseDeck.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

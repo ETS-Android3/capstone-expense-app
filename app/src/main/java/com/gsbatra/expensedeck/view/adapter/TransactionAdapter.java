@@ -32,12 +32,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         private final TextView transactionName;
         private final TextView transactionTag;
         private final TextView transactionAmount;
+        private final TextView transactionDate;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             transactionName = itemView.findViewById(R.id.transactionName);
             transactionTag = itemView.findViewById(R.id.transactionTag);
             transactionAmount = itemView.findViewById(R.id.transactionAmount);
+            transactionDate = itemView.findViewById(R.id.transactionDate);
         }
     }
 
@@ -98,6 +100,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         holder.transactionName.setText(transactions.get(position).title);
         holder.transactionTag.setText(transactions.get(position).tag);
+        holder.transactionDate.setText(transactions.get(position).when);
 
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));

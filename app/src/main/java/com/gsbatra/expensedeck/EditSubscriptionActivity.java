@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+
 import com.gsbatra.expensedeck.db.SubscriptionDatabase;
 
 import org.jetbrains.annotations.NotNull;
@@ -74,7 +75,7 @@ public class EditSubscriptionActivity extends AppCompatActivity {
         @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), android.app.AlertDialog.THEME_HOLO_DARK);
             int subscription_id = getArguments().getInt("id");
             final String title = getArguments().getString("title");
             builder.setTitle(title)

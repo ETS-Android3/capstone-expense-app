@@ -29,10 +29,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         imageView.setAnimation(fadeOut);
 
         new Handler().postDelayed((Runnable) () -> {
-            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashScreenActivity.this, SignInActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_SCREEN_TIMEOUT);
-
     }
 }
