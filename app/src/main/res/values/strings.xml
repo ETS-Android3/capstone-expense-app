@@ -73,21 +73,4 @@
     <string name="month">Month</string>
     <string name="search">Search</string>
 
-    <string-array name="expenseslist1">
-        <item>Utilities</item>
-        <item>Entertainment</item>
-        <item>Healthcare</item>
-        <item>Transportation</item>
-        <item>Housing</item>
-        <item>Investing</item>
-    </string-array>
-
-    <string-array name="incomelist1">
-        <item>Utilities</item>
-        <item>Entertainment</item>
-        <item>Healthcare</item>
-        <item>Transportation</item>
-        <item>Housing</item>
-        <item>Investing</item>
-    </string-array>
 </resources>
