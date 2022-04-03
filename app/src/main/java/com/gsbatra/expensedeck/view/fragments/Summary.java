@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -38,7 +39,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gsbatra.expensedeck.R;
 import com.gsbatra.expensedeck.db.Transaction;
 import com.gsbatra.expensedeck.db.TransactionViewModel;
-import com.gsbatra.expensedeck.view.adapter.SummaryAdapter;
 import com.gsbatra.expensedeck.view.adapter.TransactionAdapter;
 
 import java.text.NumberFormat;
@@ -55,10 +55,11 @@ import java.util.Map;
 public class Summary extends Fragment implements TransactionAdapter.OnAmountsDataReceivedListener {
 
     Calendar rightNow = Calendar.getInstance();
-    ExpandableListView expandableListView;
-    List<String> listGroup;
-    HashMap<String,List<String>> listItem;
-    SummaryAdapter adapter;
+    FrameLayout expensesParent;
+
+    FrameLayout incomeParent;
+
+    LinearLayout reportlayout;
 
     public static HashMap<String, Double> EmapMTD = new HashMap<>();
     public static HashMap<String, Double> EmapYTD = new HashMap<>();
@@ -85,6 +86,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         EmapMTD.put("Transportation",0.0);
         EmapMTD.put("Housing",0.0);
         EmapMTD.put("Investing",0.0);
+        EmapMTD.put("Food",0.0);
+        EmapMTD.put("Insurance",0.0);
+        EmapMTD.put("Other",0.0);
 
         EmapYTD.put("Utilities",0.0);
         EmapYTD.put("Entertainment",0.0);
@@ -92,6 +96,10 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         EmapYTD.put("Transportation",0.0);
         EmapYTD.put("Housing",0.0);
         EmapYTD.put("Investing",0.0);
+        EmapYTD.put("Food",0.0);
+        EmapYTD.put("Insurance",0.0);
+        EmapYTD.put("Other",0.0);
+
 
         ImapMTD.put("Utilities",0.0);
         ImapMTD.put("Entertainment",0.0);
@@ -99,6 +107,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         ImapMTD.put("Transportation",0.0);
         ImapMTD.put("Housing",0.0);
         ImapMTD.put("Investing",0.0);
+        ImapMTD.put("Food",0.0);
+        ImapMTD.put("Insurance",0.0);
+        ImapMTD.put("Other",0.0);
 
         ImapYTD.put("Utilities",0.0);
         ImapYTD.put("Entertainment",0.0);
@@ -106,6 +117,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         ImapYTD.put("Transportation",0.0);
         ImapYTD.put("Housing",0.0);
         ImapYTD.put("Investing",0.0);
+        ImapYTD.put("Food",0.0);
+        ImapYTD.put("Insurance",0.0);
+        ImapYTD.put("Other",0.0);
 
         monthtotalexpenses = 0.0;
         monthtotalincome = 0.0;
@@ -128,13 +142,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
         transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);
 
-        expandableListView = view.findViewById(R.id.expandable_listview);
-        listGroup = new ArrayList<>();
-        listItem = new HashMap<>();
-        adapter = new SummaryAdapter(getActivity(),listGroup,listItem);
-        expandableListView.setAdapter(adapter);
-        initListData();
-
         TextView monthlydate_tv = view.findViewById(R.id.MonthlyDate);
         monthlydate_tv.setText(caldate);
         RadioButton radio1 = view.findViewById(R.id.activity_main_monthly);
@@ -145,30 +152,125 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
 
+        reportlayout = view.findViewById(R.id.reportLayout);
+
+        super.onCreate(savedInstanceState);
+
+
+        for (int i = 0; i < reportlayout.getChildCount(); i++) {
+            View f = reportlayout.getChildAt(i); //go thru each framelayout
+
+            if (f instanceof FrameLayout) {
+                FrameLayout flayout = (FrameLayout) f;
+
+                switch(flayout.getId()) {
+                    case R.id.EXP_Utilities:
+                    case R.id.EXP_Entertainment:
+                    case R.id.EXP_Healthcare:
+                    case R.id.EXP_Transportation:
+                    case R.id.EXP_Housing:
+                    case R.id.EXP_Investing:
+                    case R.id.EXP_Food:
+                    case R.id.EXP_Insurance:
+                    case R.id.EXP_Other:
+                    case R.id.INC_Utilities:
+                    case R.id.INC_Entertainment:
+                    case R.id.INC_Healthcare:
+                    case R.id.INC_Transportation:
+                    case R.id.INC_Housing:
+                    case R.id.INC_Investing:
+                    case R.id.INC_Food:
+                    case R.id.INC_Insurance:
+                    case R.id.INC_Other:
+                        flayout.setVisibility((View.GONE));
+                        break;
+                }
+            }
+        }
+        expensesParent = view.findViewById(R.id.ExpensesParent);
+        expensesParent.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        for (int i = 0; i < reportlayout.getChildCount(); i++) {
+                            View f = reportlayout.getChildAt(i); //go thru each framelayout
+
+                            if (f instanceof FrameLayout) {
+                                FrameLayout alayout = (FrameLayout) f;
+
+                                switch(alayout.getId()) {
+                                    case R.id.EXP_Utilities:
+                                    case R.id.EXP_Entertainment:
+                                    case R.id.EXP_Healthcare:
+                                    case R.id.EXP_Transportation:
+                                    case R.id.EXP_Housing:
+                                    case R.id.EXP_Investing:
+                                    case R.id.EXP_Food:
+                                    case R.id.EXP_Insurance:
+                                    case R.id.EXP_Other:
+                                        View a = alayout.getChildAt(0);
+                                        TextView texta = (TextView) a;
+                                        View b = alayout.getChildAt(1);
+                                        TextView textb = (TextView) b;
+                                        View c = alayout.getChildAt(2);
+                                        TextView textc = (TextView) c;
+
+                                        if(!textb.getText().equals("$0.00") || !textc.getText().equals("$0.00")) {
+                                            alayout.setVisibility(alayout.isShown()
+                                                    ? View.GONE
+                                                    : View.VISIBLE);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+
+        incomeParent = view.findViewById(R.id.IncomeParent);
+        incomeParent.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        for (int i = 0; i < reportlayout.getChildCount(); i++) {
+                            View f = reportlayout.getChildAt(i); //go thru each framelayout
+
+                            if (f instanceof FrameLayout) {
+                                FrameLayout blayout = (FrameLayout) f;
+
+                                switch(blayout.getId()) {
+                                    case R.id.INC_Utilities:
+                                    case R.id.INC_Entertainment:
+                                    case R.id.INC_Healthcare:
+                                    case R.id.INC_Transportation:
+                                    case R.id.INC_Housing:
+                                    case R.id.INC_Investing:
+                                    case R.id.INC_Food:
+                                    case R.id.INC_Insurance:
+                                    case R.id.INC_Other:
+                                        View a = blayout.getChildAt(0);
+                                        TextView texta = (TextView) a;
+                                        View b = blayout.getChildAt(1);
+                                        TextView textb = (TextView) b;
+                                        View c = blayout.getChildAt(2);
+                                        TextView textc = (TextView) c;
+
+                                        if(!textb.getText().equals("$0.00") || !textc.getText().equals("$0.00")) {
+                                            blayout.setVisibility(blayout.isShown()
+                                                    ? View.GONE
+                                                    : View.VISIBLE);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+        );
         return view;
-    }
-
-    private void initListData() { //
-        listGroup.add(getString(R.string.expenseslist1));
-        listGroup.add(getString(R.string.incomelist1));
-
-        String[] array;
-
-        List<String> list1 = new ArrayList<>();
-        array = getResources().getStringArray(R.array.expenseslist1);
-        for (String item : array) {
-            list1.add(item);
-        }
-
-        List<String> list2 = new ArrayList<>();
-        array = getResources().getStringArray(R.array.incomelist1);
-        for (String item : array) {
-            list2.add(item);
-        }
-
-        listItem.put(listGroup.get(0),list1);
-        listItem.put(listGroup.get(1),list2);
-        adapter.notifyDataSetChanged();
     }
 
     public void setTransactions(List<Transaction> transactions) {
@@ -332,6 +434,80 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             balanceYTD_tv.setText("(" + String.valueOf(format.format(balance_ytd * -1.0)) + ")");
         }
 
+        TextView expmtd = view.findViewById(R.id.EXP_MTD);
+        expmtd.setText(String.valueOf(format.format(monthtotalexpenses)));
+
+        TextView incmtd = view.findViewById(R.id.INC_MTD);
+        incmtd.setText(String.valueOf(format.format(monthtotalincome)));
+
+        TextView expytd = view.findViewById(R.id.EXP_YTD);
+        expytd.setText(String.valueOf(format.format(yeartotalexpenses)));
+
+        TextView incytd = view.findViewById(R.id.INC_YTD);
+        incytd.setText(String.valueOf(format.format(yeartotalincome)));
+
+        reportlayout = view.findViewById(R.id.reportLayout);
+        fillReport(reportlayout);
+
+    }
+
+    public void fillReport(LinearLayout rlayout) {
+
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        format.setCurrency(Currency.getInstance("USD"));
+
+        for (int i = 0; i < rlayout.getChildCount(); i++) {
+            View f = rlayout.getChildAt(i); //go thru each framelayout
+
+            if (f instanceof FrameLayout) {
+                FrameLayout flayout = (FrameLayout) f;
+
+                switch(flayout.getId()) {
+                    case R.id.EXP_Utilities:
+                    case R.id.EXP_Entertainment:
+                    case R.id.EXP_Healthcare:
+                    case R.id.EXP_Transportation:
+                    case R.id.EXP_Housing:
+                    case R.id.EXP_Investing:
+                    case R.id.EXP_Food:
+                    case R.id.EXP_Insurance:
+                    case R.id.EXP_Other:
+                        View a = flayout.getChildAt(0);
+                        TextView texta = (TextView) a;
+                        View b = flayout.getChildAt(1);
+                        TextView textb = (TextView) b;
+                        View c = flayout.getChildAt(2);
+                        TextView textc = (TextView) c;
+
+                        textb.setText(String.valueOf(format.format(EmapMTD.get(texta.getText()))));
+                        textc.setText(String.valueOf(format.format(EmapYTD.get(texta.getText()))));
+                        break;
+                    case R.id.INC_Utilities:
+                    case R.id.INC_Entertainment:
+                    case R.id.INC_Healthcare:
+                    case R.id.INC_Transportation:
+                    case R.id.INC_Housing:
+                    case R.id.INC_Investing:
+                    case R.id.INC_Food:
+                    case R.id.INC_Insurance:
+                    case R.id.INC_Other:
+                        View d = flayout.getChildAt(0);
+                        TextView textd = (TextView) d;
+                        View e = flayout.getChildAt(1);
+                        TextView texte = (TextView) e;
+                        View f1 = flayout.getChildAt(2);
+                        TextView textf = (TextView) f1;
+
+                        texte.setText(String.valueOf(format.format(ImapMTD.get(textd.getText()))));
+                        textf.setText(String.valueOf(format.format(ImapYTD.get(textd.getText()))));
+                        break;
+                }
+
+
+            }
+
+        }
     }
 
     public void createPieChart(HashMap<String, Integer> map){
