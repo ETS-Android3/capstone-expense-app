@@ -771,6 +771,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     @Override
     public void onAmountsDataReceived(double balance, double income, double expense, int size) {
+        reportlayout = view.findViewById(R.id.reportLayout);
+        fillReport(reportlayout);
         /*NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
         String balanceMTD = format.format(balance);//
