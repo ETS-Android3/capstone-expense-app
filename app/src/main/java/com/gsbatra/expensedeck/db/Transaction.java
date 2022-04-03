@@ -40,4 +40,12 @@ public class Transaction {
 
     @ColumnInfo(name = "when")
     public String when;
+
+    public Integer getMonth() {
+        return Integer.parseInt(when.substring(0,2));
+    }
+
+    public Integer getDay() {
+        return Integer.parseInt(when.substring(3,5));
+    }
 }
