@@ -16,15 +16,13 @@
         android:fontFamily="@font/opensans_regular"
         android:focusableInTouchMode="true">
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/summary_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <LinearLayout
+                android:id="@+id/reportLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -36,6 +34,80 @@
                     android:background="@color/black">
 
                 </com.github.mikephil.charting.charts.PieChart>
+
+                <TextView
+                    android:id="@+id/chart_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:text="@string/balance"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechart"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/xaxis_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="@color/black">
+
+                    <TextView
+                        android:id="@+id/xaxis_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:fontFamily="@font/opensans_bold"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/activity_main_timeinterval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/interval"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_main_monthly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="15sp"
+                        android:text="@string/monthly"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/activity_main_yearly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="@string/yearly"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white" />
+
+                </RadioGroup>
+
 
                 <TextView
                     android:id="@+id/title_Your_Monthly"
@@ -66,18 +138,18 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/MTD_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/opensans_bold"
-                        android:id="@+id/MTD_label"
+                        android:paddingRight="130dp"
                         android:text="MTD"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                        android:textSize="18sp"
                         android:textColor="@color/white"
-                        android:paddingRight="130dp"
-                        android:layout_gravity="right"/>
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/YTD_label"
@@ -94,25 +166,749 @@
                         android:textSize="18sp" />
                 </FrameLayout>
 
-                <RelativeLayout
+                <!-- -->
+                <FrameLayout
+                    android:id="@+id/ExpensesParent"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp">
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:padding="10dp">
 
-                    <ExpandableListView
-                        android:id="@+id/expandable_listview"
+                    <TextView
+                        android:id="@+id/EXP"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"><!--android:groupIndicator="@drawable/settings_selector"--></ExpandableListView>
+                        android:layout_height="match_parent"
+                        android:paddingLeft="20dp"
+                        android:text="Expenses"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/EXP_MTD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$9999"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/EXP_YTD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$9999"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Utilities"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Utilities"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/EXP_Utilitiesm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/EXP_Utilitiesy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Entertainment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Entertainment"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Healthcare"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Healthcare"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Transportation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Transportation"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Housing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Housing"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Investing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Investing"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/EXP_Food"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Food"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Insurance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Insurance"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/EXP_Other"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Other"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/IncomeParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/INC"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="20dp"
+                        android:text="Income"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/INC_MTD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$9999"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/INC_YTD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$9999"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Utilities"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Utilities"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Entertainment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Entertainment"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Healthcare"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Healthcare"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Transportation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Transportation"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Housing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Housing"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Investing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Investing"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Food"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Food"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Insurance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Insurance"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/INC_Other"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="Other"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="right"
+                        android:paddingRight="120dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingRight="30dp"
+                        android:text="$999"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </FrameLayout>
+                <!-- -->
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/balance_label"
@@ -125,37 +921,28 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/list_child_MTD_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/list_child_MTD_balance"
+                        android:layout_gravity="right"
+                        android:paddingRight="130dp"
                         android:text="$9999"
-                        android:textSize="14sp"
                         android:textColor="@color/white"
-                        android:paddingRight="135dp"
-                        android:layout_gravity="right"/>
+                        android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/list_child_YTD_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/list_child_YTD_balance"
+                        android:layout_gravity="right"
+                        android:paddingRight="40dp"
                         android:text="$9999"
-                        android:textSize="14sp"
                         android:textColor="@color/white"
-                        android:paddingRight="45dp"
-                        android:layout_gravity="right"/>
+                        android:textSize="16sp" />
                 </FrameLayout>
 
             </LinearLayout>
 
-            <!--<LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="370dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pieChart">
-
-            </LinearLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -18,9 +18,13 @@
     <string name="total_transactions_amount">15</string>
     <string name="allTab">All</string>
     <string name="summaryTab">Summary</string>
+
     <string name="text_title">Title</string>
     <string name="text_amount">Amount</string>
     <string name="text_type">Type</string>
+
+    <string name="text_amount_total">Amount Total</string>
+    <string name="text_expense_dollars">Amount</string>
     <string name="text_note">Note</string>
     <string name="text_when">When</string>
     <string name="text_tag">Tag</string>
@@ -68,6 +72,12 @@
 
     <string name="expenseslist1">Expenses</string>
     <string name="incomelist1">Income</string>
+    <string name="balance">Balance</string>
+    <string name="interval">Interval:</string>
+    <string name="monthly">This Month</string>
+    <string name="yearly">This Year</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
     <string name="search">Search</string>
     <string name="text_startdate_req">Start Date *</string>
     <string name="text_enddate_req">End Date *</string>
@@ -79,21 +89,4 @@
     <string name="sign_in_google">SIGN IN WITH GOOGLE</string>
     <string name="sign_out">Sign out</string>
 
-    <string-array name="expenseslist1">
-        <item>Utilities</item>
-        <item>Entertainment</item>
-        <item>Healthcare</item>
-        <item>Transportation</item>
-        <item>Housing</item>
-        <item>Investing</item>
-    </string-array>
-
-    <string-array name="incomelist1">
-        <item>Utilities</item>
-        <item>Entertainment</item>
-        <item>Healthcare</item>
-        <item>Transportation</item>
-        <item>Housing</item>
-        <item>Investing</item>
-    </string-array>
 </resources>
