@@ -22,29 +22,15 @@
             android:id="@+id/toolbar"
             android:background="@color/black"
             android:minHeight="?attr/actionBarSize">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/opensans_bold"
-                android:gravity="center_vertical"
-                android:minHeight="?actionBarSize"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
-        </androidx.appcompat.widget.Toolbar>
 
-<!--        <TextView-->
-<!--            android:id="@+id/title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/opensans_bold"-->
-<!--            android:gravity="center"-->
-<!--            android:minHeight="?actionBarSize"-->
-<!--            android:padding="@dimen/appbar_padding"-->
-<!--            android:text="@string/app_name"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />-->
+            <include
+                android:id="@+id/prof_img"
+                android:layout_gravity="start"
+                layout="@layout/profile_menu_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"

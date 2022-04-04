@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/text_title">
+        android:hint="@string/text_title_req">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/text_amount"
+        android:hint="@string/text_amount_req"
         app:prefixText="@string/text_dollar">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -49,7 +49,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/et_transactionTag"
-            android:hint="@string/text_tag"
+            android:hint="@string/text_tag_req"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"

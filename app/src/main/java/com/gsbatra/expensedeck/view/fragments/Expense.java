@@ -114,46 +114,4 @@ public class Expense extends Fragment implements TransactionAdapter.OnAmountsDat
             }
         });
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.signout){
-            displayDialog();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void displayDialog() {
-        DisplayDialog signOutDialog = new DisplayDialog();
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
-        String name = "Sign out";
-        if(signInAccount != null)
-            name = signInAccount.getDisplayName();
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        signOutDialog.setArguments(args);
-        signOutDialog.show(getParentFragmentManager(), "signOutDialog");
-    }
-
-    public static class DisplayDialog extends DialogFragment {
-        @NotNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), android.app.AlertDialog.THEME_HOLO_DARK);
-            final String name = getArguments().getString("name");
-            builder.setTitle(name)
-                    .setMessage("Are you sure you want to sign out?")
-                    .setPositiveButton("Yes", (dialog, id) -> {
-                        FirebaseAuth.getInstance().signOut();
-                        GoogleSignIn.getClient(
-                                getContext(),
-                                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-                        ).signOut();
-                        Intent intent = new Intent(getActivity(), SignInActivity.class);
-                        startActivity(intent);
-                    })
-                    .setNegativeButton("Cancel", (dialog, id) -> {});
-            return builder.create();
-        }
-    }
 }
