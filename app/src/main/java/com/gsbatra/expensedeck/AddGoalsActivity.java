@@ -47,7 +47,10 @@ public class AddGoalsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddGoalsActivity.this, date1,
                         calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                Calendar c = Calendar.getInstance();
+                // 01/01/current year
+                c.set(c.get(Calendar.YEAR), 0, 1);
+                datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
                 datePickerDialog.show();
             }
         });
@@ -60,14 +63,14 @@ public class AddGoalsActivity extends AppCompatActivity {
             calendar.set(Calendar.DAY_OF_MONTH, dy);
             updateEndLabel();
         };
-        enddate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddGoalsActivity.this, date2,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                datePickerDialog.show();
-            }
+        enddate.setOnClickListener(view -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(AddGoalsActivity.this, date2,
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            Calendar c = Calendar.getInstance();
+            // 01/01/current year
+            c.set(c.get(Calendar.YEAR), 0, 1);
+            datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+            datePickerDialog.show();
         });
 
         // type dropdown

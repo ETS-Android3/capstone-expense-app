@@ -75,7 +75,7 @@ public class EditSubscriptionActivity extends AppCompatActivity {
         @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), android.app.AlertDialog.THEME_HOLO_DARK);
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
             int subscription_id = getArguments().getInt("id");
             final String title = getArguments().getString("title");
             builder.setTitle(title)

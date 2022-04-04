@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), android.app.AlertDialog.THEME_HOLO_DARK);
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
             final String name = getArguments().getString("name");
             builder.setTitle(name)
                     .setMessage("Are you sure you want to sign out?")
