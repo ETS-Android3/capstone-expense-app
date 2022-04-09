@@ -170,14 +170,18 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
-
+        
         reportlayout = view.findViewById(R.id.reportLayout);
+        revertVisibility(reportlayout);
 
         super.onCreate(savedInstanceState);
 
+        return view;
+    }
 
-        for (int i = 0; i < reportlayout.getChildCount(); i++) {
-            View f = reportlayout.getChildAt(i); //go thru each framelayout
+    public void revertVisibility(LinearLayout rlayout) {
+        for (int i = 0; i < rlayout.getChildCount(); i++) {
+            View f = rlayout.getChildAt(i); //go thru each framelayout
 
             if (f instanceof FrameLayout) {
                 FrameLayout flayout = (FrameLayout) f;
@@ -212,8 +216,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                     @Override
                     public void onClick(View v) {
 
-                        for (int i = 0; i < reportlayout.getChildCount(); i++) {
-                            View f = reportlayout.getChildAt(i); //go thru each framelayout
+                        for (int i = 0; i < rlayout.getChildCount(); i++) {
+                            View f = rlayout.getChildAt(i); //go thru each framelayout
 
                             if (f instanceof FrameLayout) {
                                 FrameLayout alayout = (FrameLayout) f;
@@ -254,8 +258,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                     @Override
                     public void onClick(View v) {
 
-                        for (int i = 0; i < reportlayout.getChildCount(); i++) {
-                            View f = reportlayout.getChildAt(i); //go thru each framelayout
+                        for (int i = 0; i < rlayout.getChildCount(); i++) {
+                            View f = rlayout.getChildAt(i); //go thru each framelayout
 
                             if (f instanceof FrameLayout) {
                                 FrameLayout blayout = (FrameLayout) f;
@@ -289,7 +293,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                     }
                 }
         );
-        return view;
     }
 
     public void setTransactions(List<Transaction> transactions) {
@@ -453,18 +456,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             balanceYTD_tv.setText("(" + String.valueOf(format.format(balance_ytd * -1.0)) + ")");
         }
 
-        TextView expmtd = view.findViewById(R.id.EXP_MTD);
-        expmtd.setText(String.valueOf(format.format(monthtotalexpenses)));
-
-        TextView incmtd = view.findViewById(R.id.INC_MTD);
-        incmtd.setText(String.valueOf(format.format(monthtotalincome)));
-
-        TextView expytd = view.findViewById(R.id.EXP_YTD);
-        expytd.setText(String.valueOf(format.format(yeartotalexpenses)));
-
-        TextView incytd = view.findViewById(R.id.INC_YTD);
-        incytd.setText(String.valueOf(format.format(yeartotalincome)));
-
         reportlayout = view.findViewById(R.id.reportLayout);
         fillReport(reportlayout);
 
@@ -472,6 +463,11 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     public void fillReport(LinearLayout rlayout) {
 
+
+        double expensesmtd = 0.0;
+        double expensesytd = 0.0;
+        double incomemtd = 0.0;
+        double incomeytd = 0.0;
 
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
@@ -500,7 +496,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                         TextView textc = (TextView) c;
 
                         textb.setText(String.valueOf(format.format(EmapMTD.get(texta.getText()))));
+                        expensesmtd += EmapMTD.get(texta.getText());
                         textc.setText(String.valueOf(format.format(EmapYTD.get(texta.getText()))));
+                        expensesytd += EmapYTD.get(texta.getText());
                         break;
                     case R.id.INC_Utilities:
                     case R.id.INC_Entertainment:
@@ -519,7 +517,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                         TextView textf = (TextView) f1;
 
                         texte.setText(String.valueOf(format.format(ImapMTD.get(textd.getText()))));
+                        incomemtd += ImapMTD.get(textd.getText());
                         textf.setText(String.valueOf(format.format(ImapYTD.get(textd.getText()))));
+                        incomeytd += ImapYTD.get(textd.getText());
                         break;
                 }
 
@@ -527,6 +527,21 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             }
 
         }
+
+        TextView expmtd = view.findViewById(R.id.EXP_MTD);
+        expmtd.setText(String.valueOf(format.format(expensesmtd)));
+
+        TextView incmtd = view.findViewById(R.id.INC_MTD);
+        incmtd.setText(String.valueOf(format.format(incomemtd)));
+
+        TextView expytd = view.findViewById(R.id.EXP_YTD);
+        expytd.setText(String.valueOf(format.format(expensesytd)));
+
+        TextView incytd = view.findViewById(R.id.INC_YTD);
+        incytd.setText(String.valueOf(format.format(incomeytd)));
+
+        revertVisibility(rlayout);
+
     }
 
     public void createPieChart(HashMap<String, Integer> map){
@@ -771,15 +786,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     public void onAmountsDataReceived(double balance, double income, double expense, int size) {
         reportlayout = view.findViewById(R.id.reportLayout);
         fillReport(reportlayout);
-        /*NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        format.setCurrency(Currency.getInstance("USD"));
-        String balanceMTD = format.format(balance);//
-        String balanceYTD = format.format(balance);//
-
-        TextView balanceMTD_tv = view.findViewById(R.id.list_child_MTD_balance);
-        balanceMTD_tv.setText(balanceMTD);
-        TextView balanceYTD_tv = view.findViewById(R.id.list_child_YTD_balance);
-        balanceYTD_tv.setText(balanceYTD);*/
+        revertVisibility(reportlayout);
     }
 
     @Override
