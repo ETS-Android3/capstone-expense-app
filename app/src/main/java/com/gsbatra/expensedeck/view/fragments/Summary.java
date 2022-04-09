@@ -27,6 +27,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -75,6 +77,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     Calendar rightNow = Calendar.getInstance();
     FrameLayout expensesParent;
+
+    public static ViewGroup v;
 
     FrameLayout incomeParent;
 
@@ -170,12 +174,13 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         adapter.setOnAmountsDataReceivedListener(this);
         adapter.getAmounts();
-        
+
         reportlayout = view.findViewById(R.id.reportLayout);
         revertVisibility(reportlayout);
 
         super.onCreate(savedInstanceState);
 
+        v = container;
         return view;
     }
 
@@ -294,6 +299,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                 }
         );
     }
+
 
     public void setTransactions(List<Transaction> transactions) {
         // Update the chart
@@ -784,8 +790,11 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     @Override
     public void onAmountsDataReceived(double balance, double income, double expense, int size) {
+        TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
+        transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);
+
         reportlayout = view.findViewById(R.id.reportLayout);
-        fillReport(reportlayout);
+
         revertVisibility(reportlayout);
     }
 
