@@ -27,6 +27,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -76,6 +78,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     Calendar rightNow = Calendar.getInstance();
     FrameLayout expensesParent;
 
+    public static ViewGroup v;
+
     FrameLayout incomeParent;
 
     LinearLayout reportlayout;
@@ -99,6 +103,165 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     private static Integer xAxisMin;
 
     public Summary(){
+        initMaps();
+    }
+
+    private View view;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        int year = rightNow.get(Calendar.YEAR);
+        String month = rightNow.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        String caldate = month + " " + year;
+
+        view = inflater.inflate(R.layout.summary_fragment, container, false);
+        TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
+        transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);
+
+        TextView monthlydate_tv = view.findViewById(R.id.MonthlyDate);
+        monthlydate_tv.setText(caldate);
+        RadioButton radio1 = view.findViewById(R.id.activity_main_monthly);
+        radio1.setChecked(true);
+
+        TransactionAdapter adapter = new TransactionAdapter(getActivity());
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        adapter.setOnAmountsDataReceivedListener(this);
+        adapter.getAmounts();
+
+        reportlayout = view.findViewById(R.id.reportLayout);
+        revertVisibility(reportlayout);
+
+        super.onCreate(savedInstanceState);
+
+        v = container;
+        return view;
+    }
+
+    public void revertVisibility(LinearLayout rlayout) {
+        for (int i = 0; i < rlayout.getChildCount(); i++) {
+            View f = rlayout.getChildAt(i); //go thru each framelayout
+
+            if (f instanceof FrameLayout) {
+                FrameLayout flayout = (FrameLayout) f;
+
+                switch(flayout.getId()) {
+                    case R.id.EXP_Utilities:
+                    case R.id.EXP_Entertainment:
+                    case R.id.EXP_Healthcare:
+                    case R.id.EXP_Transportation:
+                    case R.id.EXP_Housing:
+                    case R.id.EXP_Investing:
+                    case R.id.EXP_Food:
+                    case R.id.EXP_Insurance:
+                    case R.id.EXP_Other:
+                    case R.id.INC_Utilities:
+                    case R.id.INC_Entertainment:
+                    case R.id.INC_Healthcare:
+                    case R.id.INC_Transportation:
+                    case R.id.INC_Housing:
+                    case R.id.INC_Investing:
+                    case R.id.INC_Food:
+                    case R.id.INC_Insurance:
+                    case R.id.INC_Other:
+                        flayout.setVisibility((View.GONE));
+                        break;
+                }
+            }
+        }
+        expensesParent = view.findViewById(R.id.ExpensesParent);
+        expensesParent.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        for (int i = 0; i < rlayout.getChildCount(); i++) {
+                            View f = rlayout.getChildAt(i); //go thru each framelayout
+
+                            if (f instanceof FrameLayout) {
+                                FrameLayout alayout = (FrameLayout) f;
+
+                                switch(alayout.getId()) {
+                                    case R.id.EXP_Utilities:
+                                    case R.id.EXP_Entertainment:
+                                    case R.id.EXP_Healthcare:
+                                    case R.id.EXP_Transportation:
+                                    case R.id.EXP_Housing:
+                                    case R.id.EXP_Investing:
+                                    case R.id.EXP_Food:
+                                    case R.id.EXP_Insurance:
+                                    case R.id.EXP_Other:
+                                        View a = alayout.getChildAt(0);
+                                        TextView texta = (TextView) a;
+                                        View b = alayout.getChildAt(1);
+                                        TextView textb = (TextView) b;
+                                        View c = alayout.getChildAt(2);
+                                        TextView textc = (TextView) c;
+
+                                        if(!textb.getText().equals("$0.00") || !textc.getText().equals("$0.00")) {
+                                            alayout.setVisibility(alayout.isShown()
+                                                    ? View.GONE
+                                                    : View.VISIBLE);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+
+        incomeParent = view.findViewById(R.id.IncomeParent);
+        incomeParent.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        for (int i = 0; i < rlayout.getChildCount(); i++) {
+                            View f = rlayout.getChildAt(i); //go thru each framelayout
+
+                            if (f instanceof FrameLayout) {
+                                FrameLayout blayout = (FrameLayout) f;
+
+                                switch(blayout.getId()) {
+                                    case R.id.INC_Utilities:
+                                    case R.id.INC_Entertainment:
+                                    case R.id.INC_Healthcare:
+                                    case R.id.INC_Transportation:
+                                    case R.id.INC_Housing:
+                                    case R.id.INC_Investing:
+                                    case R.id.INC_Food:
+                                    case R.id.INC_Insurance:
+                                    case R.id.INC_Other:
+                                        View a = blayout.getChildAt(0);
+                                        TextView texta = (TextView) a;
+                                        View b = blayout.getChildAt(1);
+                                        TextView textb = (TextView) b;
+                                        View c = blayout.getChildAt(2);
+                                        TextView textc = (TextView) c;
+
+                                        if(!textb.getText().equals("$0.00") || !textc.getText().equals("$0.00")) {
+                                            blayout.setVisibility(blayout.isShown()
+                                                    ? View.GONE
+                                                    : View.VISIBLE);
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
+
+    public void initMaps() {
+        ImapMTD.clear();
+        ImapYTD.clear();
+        EmapMTD.clear();
+        ImapYTD.clear();
+
         EmapMTD.put("Utilities",0.0);
         EmapMTD.put("Entertainment",0.0);
         EmapMTD.put("Healthcare",0.0);
@@ -147,151 +310,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     }
 
-    private View view;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        int year = rightNow.get(Calendar.YEAR);
-        String month = rightNow.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-        String caldate = month + " " + year;
-
-        view = inflater.inflate(R.layout.summary_fragment, container, false);
-        TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
-        transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);
-
-        TextView monthlydate_tv = view.findViewById(R.id.MonthlyDate);
-        monthlydate_tv.setText(caldate);
-        RadioButton radio1 = view.findViewById(R.id.activity_main_monthly);
-        radio1.setChecked(true);
-
-        TransactionAdapter adapter = new TransactionAdapter(getActivity());
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        adapter.setOnAmountsDataReceivedListener(this);
-        adapter.getAmounts();
-
-        reportlayout = view.findViewById(R.id.reportLayout);
-
-        super.onCreate(savedInstanceState);
-
-
-        for (int i = 0; i < reportlayout.getChildCount(); i++) {
-            View f = reportlayout.getChildAt(i); //go thru each framelayout
-
-            if (f instanceof FrameLayout) {
-                FrameLayout flayout = (FrameLayout) f;
-
-                switch(flayout.getId()) {
-                    case R.id.EXP_Utilities:
-                    case R.id.EXP_Entertainment:
-                    case R.id.EXP_Healthcare:
-                    case R.id.EXP_Transportation:
-                    case R.id.EXP_Housing:
-                    case R.id.EXP_Investing:
-                    case R.id.EXP_Food:
-                    case R.id.EXP_Insurance:
-                    case R.id.EXP_Other:
-                    case R.id.INC_Utilities:
-                    case R.id.INC_Entertainment:
-                    case R.id.INC_Healthcare:
-                    case R.id.INC_Transportation:
-                    case R.id.INC_Housing:
-                    case R.id.INC_Investing:
-                    case R.id.INC_Food:
-                    case R.id.INC_Insurance:
-                    case R.id.INC_Other:
-                        flayout.setVisibility((View.GONE));
-                        break;
-                }
-            }
-        }
-        expensesParent = view.findViewById(R.id.ExpensesParent);
-        expensesParent.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        for (int i = 0; i < reportlayout.getChildCount(); i++) {
-                            View f = reportlayout.getChildAt(i); //go thru each framelayout
-
-                            if (f instanceof FrameLayout) {
-                                FrameLayout alayout = (FrameLayout) f;
-
-                                switch(alayout.getId()) {
-                                    case R.id.EXP_Utilities:
-                                    case R.id.EXP_Entertainment:
-                                    case R.id.EXP_Healthcare:
-                                    case R.id.EXP_Transportation:
-                                    case R.id.EXP_Housing:
-                                    case R.id.EXP_Investing:
-                                    case R.id.EXP_Food:
-                                    case R.id.EXP_Insurance:
-                                    case R.id.EXP_Other:
-                                        View a = alayout.getChildAt(0);
-                                        TextView texta = (TextView) a;
-                                        View b = alayout.getChildAt(1);
-                                        TextView textb = (TextView) b;
-                                        View c = alayout.getChildAt(2);
-                                        TextView textc = (TextView) c;
-
-                                        if(!textb.getText().equals("$0.00") || !textc.getText().equals("$0.00")) {
-                                            alayout.setVisibility(alayout.isShown()
-                                                    ? View.GONE
-                                                    : View.VISIBLE);
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
-        );
-
-        incomeParent = view.findViewById(R.id.IncomeParent);
-        incomeParent.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        for (int i = 0; i < reportlayout.getChildCount(); i++) {
-                            View f = reportlayout.getChildAt(i); //go thru each framelayout
-
-                            if (f instanceof FrameLayout) {
-                                FrameLayout blayout = (FrameLayout) f;
-
-                                switch(blayout.getId()) {
-                                    case R.id.INC_Utilities:
-                                    case R.id.INC_Entertainment:
-                                    case R.id.INC_Healthcare:
-                                    case R.id.INC_Transportation:
-                                    case R.id.INC_Housing:
-                                    case R.id.INC_Investing:
-                                    case R.id.INC_Food:
-                                    case R.id.INC_Insurance:
-                                    case R.id.INC_Other:
-                                        View a = blayout.getChildAt(0);
-                                        TextView texta = (TextView) a;
-                                        View b = blayout.getChildAt(1);
-                                        TextView textb = (TextView) b;
-                                        View c = blayout.getChildAt(2);
-                                        TextView textc = (TextView) c;
-
-                                        if(!textb.getText().equals("$0.00") || !textc.getText().equals("$0.00")) {
-                                            blayout.setVisibility(blayout.isShown()
-                                                    ? View.GONE
-                                                    : View.VISIBLE);
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
-        );
-        return view;
-    }
-
     public void setTransactions(List<Transaction> transactions) {
         // Update the chart
         LineChart lineChart = view.findViewById(R.id.linechart);
@@ -302,6 +320,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         getValues(transactions);
         setAxes();
         setLineChartData();
+
+        initMaps();
 
         String mFormat="MM";
         SimpleDateFormat dateFormat=new SimpleDateFormat(mFormat, Locale.US);
@@ -453,18 +473,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             balanceYTD_tv.setText("(" + String.valueOf(format.format(balance_ytd * -1.0)) + ")");
         }
 
-        TextView expmtd = view.findViewById(R.id.EXP_MTD);
-        expmtd.setText(String.valueOf(format.format(monthtotalexpenses)));
-
-        TextView incmtd = view.findViewById(R.id.INC_MTD);
-        incmtd.setText(String.valueOf(format.format(monthtotalincome)));
-
-        TextView expytd = view.findViewById(R.id.EXP_YTD);
-        expytd.setText(String.valueOf(format.format(yeartotalexpenses)));
-
-        TextView incytd = view.findViewById(R.id.INC_YTD);
-        incytd.setText(String.valueOf(format.format(yeartotalincome)));
-
         reportlayout = view.findViewById(R.id.reportLayout);
         fillReport(reportlayout);
 
@@ -472,6 +480,16 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     public void fillReport(LinearLayout rlayout) {
 
+        /*for (String name: ImapMTD.keySet()) {
+            String key = name.toString();
+            String value = ImapMTD.get(name).toString();
+            Toast.makeText(getActivity(), key + " " + value, Toast.LENGTH_SHORT).show();
+        }*/
+
+        double expensesmtd = 0.0;
+        double expensesytd = 0.0;
+        double incomemtd = 0.0;
+        double incomeytd = 0.0;
 
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         format.setCurrency(Currency.getInstance("USD"));
@@ -500,7 +518,9 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                         TextView textc = (TextView) c;
 
                         textb.setText(String.valueOf(format.format(EmapMTD.get(texta.getText()))));
+                        expensesmtd += EmapMTD.get(texta.getText());
                         textc.setText(String.valueOf(format.format(EmapYTD.get(texta.getText()))));
+                        expensesytd += EmapYTD.get(texta.getText());
                         break;
                     case R.id.INC_Utilities:
                     case R.id.INC_Entertainment:
@@ -519,7 +539,10 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                         TextView textf = (TextView) f1;
 
                         texte.setText(String.valueOf(format.format(ImapMTD.get(textd.getText()))));
+                        //Toast.makeText(getActivity(), "!!!" + String.valueOf(format.format(ImapMTD.get(textd.getText()))), Toast.LENGTH_SHORT).show();
+                        incomemtd += ImapMTD.get(textd.getText());
                         textf.setText(String.valueOf(format.format(ImapYTD.get(textd.getText()))));
+                        incomeytd += ImapYTD.get(textd.getText());
                         break;
                 }
 
@@ -527,6 +550,21 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
             }
 
         }
+
+        TextView expmtd = view.findViewById(R.id.EXP_MTD);
+        expmtd.setText(String.valueOf(format.format(expensesmtd)));
+
+        TextView incmtd = view.findViewById(R.id.INC_MTD);
+        incmtd.setText(String.valueOf(format.format(incomemtd)));
+
+        TextView expytd = view.findViewById(R.id.EXP_YTD);
+        expytd.setText(String.valueOf(format.format(expensesytd)));
+
+        TextView incytd = view.findViewById(R.id.INC_YTD);
+        incytd.setText(String.valueOf(format.format(incomeytd)));
+
+        revertVisibility(rlayout);
+
     }
 
     public void createPieChart(HashMap<String, Integer> map){
@@ -769,17 +807,10 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     @Override
     public void onAmountsDataReceived(double balance, double income, double expense, int size) {
-        reportlayout = view.findViewById(R.id.reportLayout);
-        fillReport(reportlayout);
-        /*NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        format.setCurrency(Currency.getInstance("USD"));
-        String balanceMTD = format.format(balance);//
-        String balanceYTD = format.format(balance);//
 
-        TextView balanceMTD_tv = view.findViewById(R.id.list_child_MTD_balance);
-        balanceMTD_tv.setText(balanceMTD);
-        TextView balanceYTD_tv = view.findViewById(R.id.list_child_YTD_balance);
-        balanceYTD_tv.setText(balanceYTD);*/
+        reportlayout = view.findViewById(R.id.reportLayout);
+
+        revertVisibility(reportlayout);
     }
 
     @Override
