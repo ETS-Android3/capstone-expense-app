@@ -103,52 +103,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     private static Integer xAxisMin;
 
     public Summary(){
-        EmapMTD.put("Utilities",0.0);
-        EmapMTD.put("Entertainment",0.0);
-        EmapMTD.put("Healthcare",0.0);
-        EmapMTD.put("Transportation",0.0);
-        EmapMTD.put("Housing",0.0);
-        EmapMTD.put("Investing",0.0);
-        EmapMTD.put("Food",0.0);
-        EmapMTD.put("Insurance",0.0);
-        EmapMTD.put("Other",0.0);
-
-        EmapYTD.put("Utilities",0.0);
-        EmapYTD.put("Entertainment",0.0);
-        EmapYTD.put("Healthcare",0.0);
-        EmapYTD.put("Transportation",0.0);
-        EmapYTD.put("Housing",0.0);
-        EmapYTD.put("Investing",0.0);
-        EmapYTD.put("Food",0.0);
-        EmapYTD.put("Insurance",0.0);
-        EmapYTD.put("Other",0.0);
-
-
-        ImapMTD.put("Utilities",0.0);
-        ImapMTD.put("Entertainment",0.0);
-        ImapMTD.put("Healthcare",0.0);
-        ImapMTD.put("Transportation",0.0);
-        ImapMTD.put("Housing",0.0);
-        ImapMTD.put("Investing",0.0);
-        ImapMTD.put("Food",0.0);
-        ImapMTD.put("Insurance",0.0);
-        ImapMTD.put("Other",0.0);
-
-        ImapYTD.put("Utilities",0.0);
-        ImapYTD.put("Entertainment",0.0);
-        ImapYTD.put("Healthcare",0.0);
-        ImapYTD.put("Transportation",0.0);
-        ImapYTD.put("Housing",0.0);
-        ImapYTD.put("Investing",0.0);
-        ImapYTD.put("Food",0.0);
-        ImapYTD.put("Insurance",0.0);
-        ImapYTD.put("Other",0.0);
-
-        monthtotalexpenses = 0.0;
-        monthtotalincome = 0.0;
-        yeartotalincome = 0.0;
-        yeartotalexpenses = 0.0;
-
+        initMaps();
     }
 
     private View view;
@@ -301,6 +256,60 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
     }
 
 
+    public void initMaps() {
+        ImapMTD.clear();
+        ImapYTD.clear();
+        EmapMTD.clear();
+        ImapYTD.clear();
+
+        EmapMTD.put("Utilities",0.0);
+        EmapMTD.put("Entertainment",0.0);
+        EmapMTD.put("Healthcare",0.0);
+        EmapMTD.put("Transportation",0.0);
+        EmapMTD.put("Housing",0.0);
+        EmapMTD.put("Investing",0.0);
+        EmapMTD.put("Food",0.0);
+        EmapMTD.put("Insurance",0.0);
+        EmapMTD.put("Other",0.0);
+
+        EmapYTD.put("Utilities",0.0);
+        EmapYTD.put("Entertainment",0.0);
+        EmapYTD.put("Healthcare",0.0);
+        EmapYTD.put("Transportation",0.0);
+        EmapYTD.put("Housing",0.0);
+        EmapYTD.put("Investing",0.0);
+        EmapYTD.put("Food",0.0);
+        EmapYTD.put("Insurance",0.0);
+        EmapYTD.put("Other",0.0);
+
+
+        ImapMTD.put("Utilities",0.0);
+        ImapMTD.put("Entertainment",0.0);
+        ImapMTD.put("Healthcare",0.0);
+        ImapMTD.put("Transportation",0.0);
+        ImapMTD.put("Housing",0.0);
+        ImapMTD.put("Investing",0.0);
+        ImapMTD.put("Food",0.0);
+        ImapMTD.put("Insurance",0.0);
+        ImapMTD.put("Other",0.0);
+
+        ImapYTD.put("Utilities",0.0);
+        ImapYTD.put("Entertainment",0.0);
+        ImapYTD.put("Healthcare",0.0);
+        ImapYTD.put("Transportation",0.0);
+        ImapYTD.put("Housing",0.0);
+        ImapYTD.put("Investing",0.0);
+        ImapYTD.put("Food",0.0);
+        ImapYTD.put("Insurance",0.0);
+        ImapYTD.put("Other",0.0);
+
+        monthtotalexpenses = 0.0;
+        monthtotalincome = 0.0;
+        yeartotalincome = 0.0;
+        yeartotalexpenses = 0.0;
+
+    }
+
     public void setTransactions(List<Transaction> transactions) {
         // Update the chart
         LineChart lineChart = view.findViewById(R.id.linechart);
@@ -311,6 +320,8 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
         getValues(transactions);
         setAxes();
         setLineChartData();
+
+        initMaps();
 
         String mFormat="MM";
         SimpleDateFormat dateFormat=new SimpleDateFormat(mFormat, Locale.US);
@@ -469,6 +480,11 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     public void fillReport(LinearLayout rlayout) {
 
+        /*for (String name: ImapMTD.keySet()) {
+            String key = name.toString();
+            String value = ImapMTD.get(name).toString();
+            Toast.makeText(getActivity(), key + " " + value, Toast.LENGTH_SHORT).show();
+        }*/
 
         double expensesmtd = 0.0;
         double expensesytd = 0.0;
@@ -523,6 +539,7 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
                         TextView textf = (TextView) f1;
 
                         texte.setText(String.valueOf(format.format(ImapMTD.get(textd.getText()))));
+                        //Toast.makeText(getActivity(), "!!!" + String.valueOf(format.format(ImapMTD.get(textd.getText()))), Toast.LENGTH_SHORT).show();
                         incomemtd += ImapMTD.get(textd.getText());
                         textf.setText(String.valueOf(format.format(ImapYTD.get(textd.getText()))));
                         incomeytd += ImapYTD.get(textd.getText());
@@ -790,8 +807,6 @@ public class Summary extends Fragment implements TransactionAdapter.OnAmountsDat
 
     @Override
     public void onAmountsDataReceived(double balance, double income, double expense, int size) {
-        TransactionViewModel transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
-        transactionViewModel.getAllTransactions().observe(getViewLifecycleOwner(), this::setTransactions);
 
         reportlayout = view.findViewById(R.id.reportLayout);
 
